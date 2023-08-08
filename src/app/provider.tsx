@@ -1,0 +1,44 @@
+'use client';
+import StyledComponentsRegistry from '@/styles/StyledComponentsRegistry';
+import { GlobalStyle } from '@/styles/global-style';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PropsWithChildren, useState } from 'react';
+
+const Provider = ({ children }: PropsWithChildren) => {
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        refetchOnWindowFocus: false,
+                        refetchOnMount: false,
+                        retry: 0,
+                        cacheTime: 1000 * 60 * 15,
+                    },
+                },
+                queryCache: new QueryCache({
+                    onError: (err: any) => {
+                        console.log('queryCache', err);
+                    },
+                }),
+                mutationCache: new MutationCache({
+                    onError: (err: any) => {
+                        console.log('mutationCache', err);
+                    },
+                }),
+            }),
+    );
+
+    return (
+        <StyledComponentsRegistry>
+            <QueryClientProvider client={queryClient}>
+                {children}
+                <ReactQueryDevtools />
+            </QueryClientProvider>
+            <GlobalStyle />
+        </StyledComponentsRegistry>
+    );
+};
+
+export default Provider;
