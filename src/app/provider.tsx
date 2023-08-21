@@ -3,7 +3,8 @@ import StyledComponentsRegistry from '@/styles/StyledComponentsRegistry';
 import { GlobalStyle } from '@/styles/global-style';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
 const Provider = ({ children }: PropsWithChildren) => {
     const [queryClient] = useState(
@@ -29,7 +30,9 @@ const Provider = ({ children }: PropsWithChildren) => {
                 }),
             }),
     );
-
+    useEffect(() => {
+        Modal.setAppElement('body');
+    }, []);
     return (
         <StyledComponentsRegistry>
             <QueryClientProvider client={queryClient}>
