@@ -2,7 +2,7 @@
 import { useDeleteUserMutation } from '@/apis/auth/mutations/useDeleteUserMutation';
 import { useModifyProfileMutation } from '@/apis/auth/mutations/useModifyProfileMutation';
 import { GetProfileQueryKey, TGetProfileData, TUserProfile } from '@/apis/auth/queries/useGetProfileQuery';
-import { ModifyProfileSchema } from '@/utils/schema/modifyProfileSchema';
+import { ModifyProfileSchema } from '@/app/utils/schema/modifyProfileSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';

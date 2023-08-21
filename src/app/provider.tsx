@@ -1,10 +1,11 @@
 'use client';
-import StyledComponentsRegistry from '@/styles/StyledComponentsRegistry';
-import { GlobalStyle } from '@/styles/global-style';
+
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import StyledComponentsRegistry from './styles/StyledComponentsRegistry';
+import { GlobalStyle } from './styles/global-style';
 
 const Provider = ({ children }: PropsWithChildren) => {
     const [queryClient] = useState(

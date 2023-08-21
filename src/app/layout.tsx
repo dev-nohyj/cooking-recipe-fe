@@ -1,5 +1,5 @@
-import Header from '@/components/shared/layouts/Header';
 import { Pretendard } from '../../public/fonts';
+import Header from './components/shared/layouts/Header';
 import Head from './head';
 import Provider from './provider';
 

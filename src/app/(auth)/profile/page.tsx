@@ -1,4 +1,4 @@
-import Main from '@/components/profile/Main';
+import Main from '@/app/components/profile/Main';
 
 interface Props {}
 

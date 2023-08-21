@@ -1,16 +1,16 @@
 'use client';
-import { useSwitchState } from '@/hooks/useSwitchState';
+import { useSwitchState } from '@/app/hooks/useSwitchState';
 import Link from 'next/link';
 import LoginModal from '../modals/LoginModal';
 import { styled } from 'styled-components';
 import { colors } from '@/asset/colors';
 import { GetProfileQueryKey, TGetProfileData, useGetProfileQuery } from '@/apis/auth/queries/useGetProfileQuery';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useLogoutMutation } from '@/apis/auth/mutations/useLogoutMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { produce } from 'immer';
-import { useOutsideClick } from '@/hooks/useOutsizeClick';
+import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
 
 interface Props {}
 
