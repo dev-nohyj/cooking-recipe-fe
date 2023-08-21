@@ -4,6 +4,7 @@ const nextConfig = {
     swcMinify: true,
     env: {
         BACKEND_URL: process.env.BACKEND_URL,
+        COOKIE: process.env.COOKIE,
     },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',

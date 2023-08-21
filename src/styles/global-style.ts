@@ -45,4 +45,16 @@ export const GlobalStyle = createGlobalStyle`
         
     }
     
+    .modal-open {
+        overflow: hidden;
+    }
+    .authModal {
+        @media only screen and (max-width: 530px) {
+        height: 100%;
+    }
+        &:focus {
+            outline: none;
+            -webkit-tap-highlight-color : transparent
+        }
+    }
 `;
