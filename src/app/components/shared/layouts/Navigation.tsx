@@ -8,14 +8,16 @@ import { GetProfileQueryKey, TGetProfileData, useGetProfileQuery } from '@/apis/
 import { useCallback, useRef } from 'react';
 import { useLogoutMutation } from '@/apis/auth/mutations/useLogoutMutation';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { produce } from 'immer';
 import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
+import { hideHeaderPage } from '@/asset/labels/hideRoutePage';
 
 interface Props {}
 
 const Navigation = ({}: Props) => {
     const router = useRouter();
+    const pathname = usePathname();
     const cache = useQueryClient();
 
     const [isLoginModalVisible, onChangeLoginModalVisible] = useSwitchState();
@@ -54,6 +56,7 @@ const Navigation = ({}: Props) => {
         mutate();
     }, []);
 
+    if (hideHeaderPage.includes(pathname)) return <></>;
     return (
         <Container>
             <Nav>
@@ -62,8 +65,8 @@ const Navigation = ({}: Props) => {
                 </NavLeft>
                 <NavRight>
                     <div>
-                        <Link href={'/'}>Tap1</Link>
-                        <Link href={'/'}>Tap2</Link>
+                        <Link href={'/recipe'}>recipe</Link>
+                        <Link href={'/food'}>food</Link>
                     </div>
                     <VerticalLine />
                     {data?.profile ? (
