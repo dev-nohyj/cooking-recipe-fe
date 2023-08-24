@@ -19,7 +19,7 @@ const Main = ({ recipePostId }: Props) => {
     const { data } = useRecipePostDetailQuery({ recipePostId });
 
     useLayoutEffect(() => {
-        if (!data || user?.profile?.id !== data.authorId) {
+        if (!data || user?.profile?.id !== data.author.id) {
             router.replace('/recipe');
         }
     }, []);

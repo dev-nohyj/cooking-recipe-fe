@@ -4,6 +4,7 @@ import RecipeCategory from './RecipeCategory';
 import { styled } from 'styled-components';
 import { useMemo } from 'react';
 import RecipeList from './RecipeList';
+import Link from 'next/link';
 
 interface Props {
     type: keyof typeof RecipePostCategoryLabel | undefined;
@@ -20,6 +21,9 @@ const Main = ({ type }: Props) => {
 
     return (
         <Container>
+            <div>
+                <Link href={'/recipe/write'}>생성</Link>
+            </div>
             <RecipeCategory category={category} />
             <RecipeList category={category} />
         </Container>

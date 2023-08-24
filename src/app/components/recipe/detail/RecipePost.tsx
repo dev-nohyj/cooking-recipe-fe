@@ -1,5 +1,5 @@
 'use client';
-import { RecipePostDetailQueryKey, useRecipePostDetailQuery } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
+import { useRecipePostDetailQuery } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
 import { useCallback, useEffect } from 'react';
 import RecipeContainer from '../contents/RecipeContainer';
 import TopSection from '../contents/TopSection';
@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useDeleteRecipePostMutation } from '@/apis/recipePost/mutations/useDeleteRecipePostMutation';
 import { TGetRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import { produce } from 'immer';
+import CommentContainer from './CommentContainer';
 
 interface Props {
     recipePostId: number;
@@ -24,22 +25,20 @@ const RecipePost = ({ recipePostId }: Props) => {
         onError: (err) => {
             alert(err.response?.data.message ?? '에러가 발생했습니다.');
         },
-        onSuccess: (_, variables) => {
+        onSuccess: (data) => {
             router.replace('/recipe');
             cache.setQueriesData<InfiniteData<TGetRecipePostData>>(['recipeList'], (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {
                         draft.pages.forEach((list) => {
                             list.recipePostList = list.recipePostList.filter((item) => {
-                                return item.id !== variables.recipePostId;
+                                return item.id !== data.recipePostId;
                             });
                         });
                     });
                     return newData;
                 }
             });
-            cache.setQueryData(RecipePostDetailQueryKey(variables), undefined);
-            cache.removeQueries(RecipePostDetailQueryKey(variables));
         },
     });
 
@@ -63,14 +62,16 @@ const RecipePost = ({ recipePostId }: Props) => {
     return (
         <section>
             <RecipeContainer>
-                {user?.profile?.id === data.authorId}
-                <div>
-                    <button onClick={onModify}>수정</button>
-                    <button disabled={isLoading} onClick={onDelete}>
-                        삭제
-                    </button>
-                </div>
-                <TopSection date={data.createdAt} title={data.title} />
+                {user?.profile?.id === data.author.id && (
+                    <div>
+                        <button onClick={onModify}>수정</button>
+                        <button disabled={isLoading} onClick={onDelete}>
+                            삭제
+                        </button>
+                    </div>
+                )}
+
+                <TopSection date={data.createdAt} title={data.title} category={data.category} />
                 <div
                     className="recipePost"
                     dangerouslySetInnerHTML={{
@@ -85,6 +86,7 @@ const RecipePost = ({ recipePostId }: Props) => {
                     }}
                 />
             </RecipeContainer>
+            <CommentContainer commentCount={data.commentCount} recipePostId={recipePostId} />
         </section>
     );
 };

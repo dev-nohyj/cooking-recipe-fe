@@ -5,7 +5,7 @@ import { colors } from '@/asset/colors';
 import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
 import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQueryClient } from '@tanstack/react-query';
+import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { ChangeEvent, useCallback, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
@@ -14,6 +14,8 @@ import { nanoid } from 'nanoid';
 import BottomSction from './BottomSction';
 import { useRouter } from 'next/navigation';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
+import { TGetRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
+import { produce } from 'immer';
 
 interface Props {}
 
@@ -43,9 +45,32 @@ const RegisterForm = ({}: Props) => {
     );
 
     const { mutate: onCreate, isLoading: isCreateLoading } = useCreateRecipePostMutation({
-        onSuccess: (data) => {
+        onSuccess: (data, variables) => {
             alert('업로드를 완료했습니다.');
-            router.replace('/recipe');
+            cache.setQueryData<InfiniteData<TGetRecipePostData>>(['recipeList', null], (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.pages[0].recipePostList = [
+                            { ...data, isLike: false, likeCount: 0 },
+                            ...draft.pages[0].recipePostList,
+                        ];
+                    });
+                    return newData;
+                }
+            });
+            cache.setQueryData<InfiniteData<TGetRecipePostData>>(['recipeList', variables.category], (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.pages[0].recipePostList = [
+                            { ...data, isLike: false, likeCount: 0 },
+                            ...draft.pages[0].recipePostList,
+                        ];
+                    });
+                    return newData;
+                }
+            });
+
+            router.replace(`/recipe/detail/${data.id}`);
         },
         onError: () => {
             alert('포스팅에 실패했습니다. 잠시 후 다시 시도해 주세요');

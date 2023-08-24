@@ -16,6 +16,7 @@ const HydratedRecipePost = async ({ recipePostId }: Props) => {
     await queryClient.prefetchQuery(RecipePostDetailQueryKey({ recipePostId }), () =>
         RecipePostDetailQueryFn({ recipePostId }, cookie),
     );
+
     const dehydratedState = dehydrate(queryClient);
     return (
         <HydrateOnClient state={dehydratedState}>

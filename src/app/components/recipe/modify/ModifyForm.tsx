@@ -1,6 +1,6 @@
 import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
 import { useModifyRecipePostMutation } from '@/apis/recipePost/mutations/useModifyRecipePostMutation';
-import { TRecipePostDetailData } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
+import { RecipePostDetailQueryKey, TRecipePostDetailData } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
 import { RecipePostSchema } from '@/app/utils/schema/recipePostSchema';
 import { colors } from '@/asset/colors';
 import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
@@ -15,6 +15,7 @@ import EditorComponent from '../contents/EditorComponent';
 import { nanoid } from 'nanoid';
 import BottomSction from '../create/BottomSction';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
+import { produce } from 'immer';
 
 interface Props {
     recipePostData: TRecipePostDetailData;
@@ -32,7 +33,7 @@ const ModifyForm = ({ recipePostData }: Props) => {
             content: recipePostData.content,
             thumbnailUrl: recipePostData.thumbnailUrl,
             category: recipePostData.category,
-            tags: [], // data.tags,
+            tags: recipePostData.tags.map((v) => v.title),
         },
         resolver: yupResolver(RecipePostSchema),
     });
@@ -44,10 +45,26 @@ const ModifyForm = ({ recipePostData }: Props) => {
         watch('tags'),
         setTags,
     );
+
     const { mutate: onModify, isLoading: isModifyLoading } = useModifyRecipePostMutation({
         onSuccess: (data) => {
             alert('게시물을 수정했습니다.');
-            router.replace('/recipe');
+            cache.removeQueries(['recipeList']);
+            cache.setQueryData<TRecipePostDetailData>(RecipePostDetailQueryKey({ recipePostId: data.id }), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.title = data.title;
+                        draft.thumbnailUrl = data.thumbnailUrl;
+                        draft.content = data.content;
+                        draft.category = data.category;
+                        draft.updatedAt = data.updatedAt;
+                        draft.tags = data.tags;
+                    });
+                    return newData;
+                }
+            });
+
+            router.replace(`/recipe/detail/${data.id}`);
         },
         onError: () => {
             alert('게시물 수정에 실패했습니다.');
