@@ -7,13 +7,14 @@ export type TRecipePostData = {
     id: number;
     title: string;
     thumbnailUrl: string;
-    category: ValueOf<typeof RecipePostCategoryLabel>;
     author: {
         nickname: string;
         profileImageUrl: string | null;
     };
     isLike: boolean;
     likeCount: number;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 export type TGetRecipePostData = {

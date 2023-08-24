@@ -7,10 +7,19 @@ export type TRecipePostDetailData = {
     id: number;
     thumbnailUrl: string;
     title: string;
-    createdAt: Date;
     content: string;
-    authorId: string;
     category: ValueOf<typeof RecipePostCategoryLabel>;
+    createdAt: Date;
+    updatedAt: Date;
+    author: {
+        id: string;
+        nickname: string;
+        profileImageUrl: string | null;
+    };
+    isLike: boolean;
+    likeCount: number;
+    tags: { id: number; title: string }[];
+    commentCount: number;
 };
 
 export type TRecipePostDetailVariables = {

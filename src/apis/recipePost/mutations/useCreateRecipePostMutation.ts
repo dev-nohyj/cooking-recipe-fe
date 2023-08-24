@@ -11,7 +11,17 @@ export type TCreateRecipePostVariables = {
     tags: string[] | null;
 };
 
-export type TCreateRecipePostData = {};
+export type TCreateRecipePostData = {
+    id: number;
+    title: string;
+    thumbnailUrl: string;
+    author: {
+        nickname: string;
+        profileImageUrl: string | null;
+    };
+    createdAt: Date;
+    updatedAt: Date;
+};
 
 export const useCreateRecipePostMutation = (
     options?: UseMutationOptions<TCreateRecipePostData, AxiosError<TAxiosError>, TCreateRecipePostVariables>,

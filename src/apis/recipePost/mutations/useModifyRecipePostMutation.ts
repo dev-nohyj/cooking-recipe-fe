@@ -12,7 +12,24 @@ export type TModifyRecipePostVariables = {
     recipePostId: number;
 };
 
-export type TModifyRecipePostData = {};
+export type TModifyRecipePostData = {
+    id: number;
+    thumbnailUrl: string;
+    title: string;
+    content: string;
+    category: ValueOf<typeof RecipePostCategoryLabel>;
+    createdAt: Date;
+    updatedAt: Date;
+    author: {
+        id: string;
+        nickname: string;
+        profileImageUrl: string | null;
+    };
+    isLike: boolean;
+    likeCount: number;
+    tags: { id: number; title: string }[];
+    commentCount: number;
+};
 
 export const useModifyRecipePostMutation = (
     options?: UseMutationOptions<TModifyRecipePostData, AxiosError<TAxiosError>, TModifyRecipePostVariables>,

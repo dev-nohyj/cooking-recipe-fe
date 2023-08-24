@@ -6,7 +6,9 @@ export type TDeleteRecipePostVariables = {
     recipePostId: number;
 };
 
-export type TDeleteRecipePostData = {};
+export type TDeleteRecipePostData = {
+    recipePostId: number;
+};
 
 export const useDeleteRecipePostMutation = (
     options?: UseMutationOptions<TDeleteRecipePostData, AxiosError<TAxiosError>, TDeleteRecipePostVariables>,
