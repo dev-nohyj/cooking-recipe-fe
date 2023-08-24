@@ -8,6 +8,7 @@ export type TDeleteCommentVariables = {
 
 export type TDeleteCommentData = {
     commentId: number;
+    deletedAt: Date;
 };
 
 export const useDeleteCommentMutation = (

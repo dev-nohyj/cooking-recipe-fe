@@ -10,6 +10,7 @@ export type TModifyCommentVariables = {
 export type TModifyCommentData = {
     commentId: number;
     comment: string;
+    updatedAt: Date;
 };
 
 export const useModifyCommentMutation = (
