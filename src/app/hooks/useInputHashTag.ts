@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
 
-export const useInputHashTag = (watchTags: string[], setTags: (tags: string[]) => void) => {
+export const useInputHashTag = (watchTags: string[], setTags: (tags: string[]) => void, maxTagCount = 5) => {
     const [inputHashTag, setInputHashTag] = useState('');
     const addHashTag = (e: KeyboardEvent<HTMLInputElement>) => {
         const allowedCommand = ['Comma', 'Enter', 'NumpadEnter'];
@@ -26,7 +26,7 @@ export const useInputHashTag = (watchTags: string[], setTags: (tags: string[]) =
 
         if (newHashTag.length === 0) return;
         const tags = [...new Set([...watchTags, newHashTag])];
-        if (tags.length <= 5) {
+        if (tags.length <= maxTagCount) {
             setTags(tags);
         }
         setInputHashTag('');
