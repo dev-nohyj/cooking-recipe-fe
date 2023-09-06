@@ -6,6 +6,7 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import StyledComponentsRegistry from './styles/StyledComponentsRegistry';
 import { GlobalStyle } from './styles/global-style';
+import ToastRegistry from './components/shared/layouts/ToastRegistry';
 
 const Provider = ({ children }: PropsWithChildren) => {
     const [queryClient] = useState(
@@ -41,6 +42,7 @@ const Provider = ({ children }: PropsWithChildren) => {
                 <ReactQueryDevtools />
             </QueryClientProvider>
             <GlobalStyle />
+            <ToastRegistry />
         </StyledComponentsRegistry>
     );
 };
