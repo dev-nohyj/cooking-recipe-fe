@@ -4,13 +4,11 @@ import { defaultAxios } from '@/config/axiosInstance/defaultAxios';
 
 export type TModifyProfileVariables = {
     nickname: string;
-    profileImageUrl: string | null;
     introduction: string | null;
 };
 
 export type TModifyProfileData = {
     nickname: string;
-    profileImageUrl: string | null;
     introduction: string | null;
 };
 
