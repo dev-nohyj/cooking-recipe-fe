@@ -17,7 +17,7 @@ interface Props {
 
 const LoginModal = ({ isLoginModalVisible, onChangeLoginModalVisible, isSignupState, onChangeState }: Props) => {
     useEffect(() => {
-        document.body.className = 'modal-open';
+        document.body.className = 'modal_open';
 
         return () => {
             document.body.className = '';

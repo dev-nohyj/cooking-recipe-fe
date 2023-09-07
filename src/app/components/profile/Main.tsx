@@ -7,11 +7,7 @@ interface Props {}
 const Main = ({}: Props) => {
     const { data } = useGetProfileQuery();
 
-    return (
-        <section>
-            <ProfileForm profile={data?.profile!} />
-        </section>
-    );
+    return <ProfileForm profile={data?.profile!} />;
 };
 
 export default Main;

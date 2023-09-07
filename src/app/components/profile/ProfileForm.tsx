@@ -9,6 +9,7 @@ import { produce } from 'immer';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { styled } from 'styled-components';
 
 interface Props {
     profile: TUserProfile;
@@ -70,31 +71,44 @@ const ProfileForm = ({ profile }: Props) => {
     );
 
     return (
-        <div>
-            <input type="file" />
-            <Controller
-                control={control}
-                name="nickname"
-                render={({ field: { onChange, value } }) => {
-                    return <input type="text" onChange={onChange} value={value} maxLength={50} placeholder="닉네임" />;
-                }}
-            />
+        <Container>
+            <div>
+                <input type="file" />
+                <Controller
+                    control={control}
+                    name="nickname"
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <input type="text" onChange={onChange} value={value} maxLength={50} placeholder="닉네임" />
+                        );
+                    }}
+                />
 
-            <Controller
-                control={control}
-                name="introduction"
-                render={({ field: { onChange, value } }) => {
-                    return <input type="text" onChange={onChange} value={value} maxLength={100} placeholder="소개" />;
-                }}
-            />
-            <button onClick={onSubmit} disabled={isModifyProfileLoading}>
-                정보 수정
-            </button>
-            <button disabled={isLoading} onClick={onDelete}>
-                회원 탈퇴
-            </button>
-        </div>
+                <Controller
+                    control={control}
+                    name="introduction"
+                    render={({ field: { onChange, value } }) => {
+                        return (
+                            <input type="text" onChange={onChange} value={value} maxLength={100} placeholder="소개" />
+                        );
+                    }}
+                />
+                <button onClick={onSubmit} disabled={isModifyProfileLoading}>
+                    정보 수정
+                </button>
+                <button disabled={isLoading} onClick={onDelete}>
+                    회원 탈퇴
+                </button>
+            </div>
+        </Container>
     );
 };
+
+const Container = styled.section`
+    max-width: 768px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 0 16px 80px;
+`;
 
 export default ProfileForm;

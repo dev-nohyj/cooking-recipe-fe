@@ -5,10 +5,10 @@ interface Props {}
 
 const FoodMainPage = ({}: Props) => {
     return (
-        <main>
+        <>
             <Link href={'/food/write'}>생성</Link>
             <Main />
-        </main>
+        </>
     );
 };
 

@@ -5,11 +5,7 @@ interface Props {
 }
 
 const Main = ({ recipePostId }: Props) => {
-    return (
-        <main>
-            <HydratedRecipePost recipePostId={recipePostId} />
-        </main>
-    );
+    return <HydratedRecipePost recipePostId={recipePostId} />;
 };
 
 export default Main;

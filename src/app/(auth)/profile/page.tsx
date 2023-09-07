@@ -9,11 +9,7 @@ const ProfilePage = ({}: Props) => {
     if (!cookie) {
         redirect('/');
     }
-    return (
-        <main>
-            <Main />
-        </main>
-    );
+    return <Main />;
 };
 
 export default ProfilePage;

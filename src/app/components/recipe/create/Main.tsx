@@ -12,7 +12,7 @@ const Main = ({}: Props) => {
     );
 };
 
-const Container = styled.main`
+const Container = styled.section`
     position: relative;
     max-width: 1024px;
     margin: 0 auto;

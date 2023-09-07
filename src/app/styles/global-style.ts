@@ -46,7 +46,7 @@ export const GlobalStyle = createGlobalStyle`
         
     }
     
-    .modal-open {
+    .modal_open {
         overflow: hidden;
     }
     .authModal {
@@ -57,5 +57,9 @@ export const GlobalStyle = createGlobalStyle`
             outline: none;
             -webkit-tap-highlight-color : transparent
         }
+    }
+
+    .file_input {
+        display: none;
     }
 `;

@@ -13,14 +13,14 @@ const LoginFailurePage = ({ searchParams: { code } }: Props) => {
         parseInt(code) === loginFailureLabel.providerFail ? '잘못된 소셜로그인 접근' : '시스템에러 발생';
     const router = useRouter();
     const goBack = () => {
-        router.back();
+        router.replace('/');
     };
     return (
-        <main>
+        <section>
             <h1>로그인에 실패했습니다</h1>
             <p>{ErrorReason}</p>
             <button onClick={goBack}>돌아가기</button>
-        </main>
+        </section>
     );
 };
 
