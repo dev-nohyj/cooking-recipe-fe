@@ -1,10 +1,10 @@
 import { colors } from '@/asset/colors';
 import Image from 'next/image';
 import { styled } from 'styled-components';
-import { commonImages } from '../../../../../public/images';
+import { commonImages } from '../../../../../../public/images';
 import { MutableRefObject } from 'react';
-import TopTabToggleIcon from '../../../../../public/svg/TopTabToggleIcon';
-import LoginModal from '../modals/LoginModal';
+import TopTabToggleIcon from '../../../../../../public/svg/TopTabToggleIcon';
+import LoginModal from '../../modals/LoginModal';
 import Link from 'next/link';
 
 interface Props {
