@@ -6,6 +6,7 @@ import CloseIcon from '../../../../../../public/svg/CloseIcon';
 import { MutableRefObject } from 'react';
 import Link from 'next/link';
 import { nanoid } from 'nanoid';
+import { RectangleButton } from '../../button/RectangleButton';
 
 interface Props {
     onChangeLoginModalVisible: (v?: any) => void;
@@ -57,7 +58,16 @@ const MobileNavList = ({
                             </Logout>
                         </>
                     ) : (
-                        <Login onClick={onChangeLoginModalVisible}>로그인</Login>
+                        <RectangleButton
+                            backgroundColor={colors.sandyBrown}
+                            color={colors.white}
+                            borderRadius={'16px'}
+                            maxWidth="100%"
+                            margin={'6px 0'}
+                            onClick={onChangeLoginModalVisible}
+                        >
+                            로그인
+                        </RectangleButton>
                     )}
                 </DropdownContainer>
             )}
@@ -107,21 +117,6 @@ const Logout = styled.button`
     padding: 12px 16px;
     width: 100%;
     text-align: start;
-`;
-
-const Login = styled.button`
-    height: 3.2rem;
-    background-color: ${colors.sandyBrown};
-    margin: 6px 0;
-    width: 100%;
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: ${colors.white};
-    border: none;
-    border-radius: 1.6rem;
-    &:hover {
-        opacity: 0.9;
-    }
 `;
 
 export default MobileNavList;

@@ -1,6 +1,7 @@
 import { colors } from '@/asset/colors';
-import { Desc, ProfileContainer, RectangleBtn, Title } from '../Profile.style';
+import { Desc, ProfileContainer, Title } from '../Profile.style';
 import DeleteConfirmModal from './DeleteConfirmModal';
+import { RectangleButton } from '../../shared/button/RectangleButton';
 
 interface Props {
     isVisibleModal: boolean;
@@ -14,14 +15,14 @@ const DeleteProfileView = ({ isVisibleModal, onChangeVisibleModal, onDelete, isD
         <>
             <ProfileContainer>
                 <Title>회원 탈퇴</Title>
-                <RectangleBtn
+                <RectangleButton
                     backgroundColor={colors.red}
                     color={colors.white}
                     margin={'16px 0 8px'}
                     onClick={onChangeVisibleModal}
                 >
                     회원 탈퇴
-                </RectangleBtn>
+                </RectangleButton>
                 <Desc>탈퇴 시 작성하신 게시물은 모두 삭제되며 복구되지 않습니다.</Desc>
             </ProfileContainer>
             {isVisibleModal && (

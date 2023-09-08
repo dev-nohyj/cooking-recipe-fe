@@ -1,8 +1,9 @@
 import { colors } from '@/asset/colors';
 import { useEffect, useMemo } from 'react';
 import ReactModal from 'react-modal';
-import { BtnWrapper, DeleteModalContainer, DeleteModalTitle, TextBtn } from '../Profile.style';
+import { BtnWrapper, DeleteModalContainer, DeleteModalTitle } from '../Profile.style';
 import { ModalWrapper } from '../../../styles/ModalFade.style';
+import { TextButton } from '../../shared/button/TextButton';
 
 interface Props {
     isVisibleModal: boolean;
@@ -62,10 +63,10 @@ const DeleteConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onDelete, is
             <DeleteModalContainer>
                 <DeleteModalTitle>정말로 탈퇴 하시겠습니까?</DeleteModalTitle>
                 <BtnWrapper>
-                    <TextBtn fontSize={'1.4rem'} onClick={onChangeVisibleModal} color={colors.black}>
+                    <TextButton fontSize={'1.4rem'} onClick={onChangeVisibleModal} color={colors.black}>
                         닫기
-                    </TextBtn>
-                    <TextBtn
+                    </TextButton>
+                    <TextButton
                         disabled={isDeleteLoading}
                         onClick={onDelete}
                         fontSize={'1.4rem'}
@@ -73,7 +74,7 @@ const DeleteConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onDelete, is
                         marginLeft="10px"
                     >
                         확인
-                    </TextBtn>
+                    </TextButton>
                 </BtnWrapper>
             </DeleteModalContainer>
         </ReactModal>

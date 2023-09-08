@@ -7,6 +7,7 @@ import TopTabToggleIcon from '../../../../../../public/svg/TopTabToggleIcon';
 import { commonImages } from '../../../../../../public/images';
 import Image from 'next/image';
 import { nanoid } from 'nanoid';
+import { RectangleButton } from '../../button/RectangleButton';
 
 interface Props {
     onChangeLoginModalVisible: () => void;
@@ -73,7 +74,15 @@ const NavList = ({
                 </li>
             ) : (
                 <li>
-                    <Login onClick={onChangeLoginModalVisible}>로그인</Login>
+                    <RectangleButton
+                        backgroundColor={colors.sandyBrown}
+                        color={colors.white}
+                        borderRadius={'16px'}
+                        padding={'8px 16px'}
+                        onClick={onChangeLoginModalVisible}
+                    >
+                        로그인
+                    </RectangleButton>
                 </li>
             )}
         </Container>
@@ -103,20 +112,6 @@ const HorizontalGap = styled.div`
     width: 1px;
     height: 16px;
     margin: 0 16px;
-`;
-
-const Login = styled.button`
-    height: 3.2rem;
-    background-color: ${colors.sandyBrown};
-    padding: 1px 1.6rem;
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: ${colors.white};
-    border: none;
-    border-radius: 1.6rem;
-    &:hover {
-        opacity: 0.9;
-    }
 `;
 
 const ProfileButton = styled.button`

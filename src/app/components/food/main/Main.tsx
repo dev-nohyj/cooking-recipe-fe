@@ -9,13 +9,18 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { styled } from 'styled-components';
+import { FloatingButton } from '../../shared/button/FloatingButton';
+import WriteIcon from '../../../../../public/svg/WriteIcon';
 
 interface Props {}
 
 const Main = ({}: Props) => {
     const cache = useQueryClient();
     const router = useRouter();
-
+    const onCreate = useCallback(() => {
+        router.push('/food/write');
+    }, []);
     const { data, fetchNextPage, isLoading, error } = useGetFoodPostQuery({ keepPreviousData: true });
     const { foodPostList, hasMore } = useMemo(() => {
         if (!data || data.pages[0].foodPostList.length === 0) return { foodPostList: [], hasMore: false };
@@ -65,32 +70,40 @@ const Main = ({}: Props) => {
     if (foodPostList.length === 0) return <>empty list</>;
 
     return (
-        <InfiniteScroll dataLength={foodPostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
-            <div>
-                {foodPostList.map((v) => {
-                    return (
-                        <div
-                            key={nanoid(6)}
-                            onClick={() => {
-                                onDetail(v.id);
-                            }}
-                        >
-                            <Image alt="img" src={v.imageUrl} width={300} height={200} />
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onLike(v.id, v.isLike);
+        <Container>
+            <FloatingButton onClick={onCreate}>
+                <WriteIcon />
+            </FloatingButton>
+            <InfiniteScroll dataLength={foodPostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
+                <div>
+                    {foodPostList.map((v) => {
+                        return (
+                            <div
+                                key={nanoid(6)}
+                                onClick={() => {
+                                    onDetail(v.id);
                                 }}
-                                disabled={isLikeLoading}
                             >
-                                {v.isLike ? 'unLike' : 'like'}
-                            </button>
-                        </div>
-                    );
-                })}
-            </div>
-        </InfiniteScroll>
+                                <Image alt="img" src={v.imageUrl} width={300} height={200} />
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onLike(v.id, v.isLike);
+                                    }}
+                                    disabled={isLikeLoading}
+                                >
+                                    {v.isLike ? 'unLike' : 'like'}
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
+            </InfiniteScroll>
+        </Container>
     );
 };
-
+const Container = styled.section`
+    max-width: 1024px;
+    margin: 0 auto;
+`;
 export default Main;

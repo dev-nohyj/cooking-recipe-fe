@@ -1,7 +1,8 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { BtnWrapper, Desc, ErrorMsg, ModifyProfileInput, ProfileContainer, TextBtn, Title } from '../Profile.style';
+import { BtnWrapper, Desc, ErrorMsg, ModifyProfileInput, ProfileContainer, Title } from '../Profile.style';
 import { colors } from '@/asset/colors';
 import { TModifyProfileInfo } from '.';
+import { TextButton } from '../../shared/button/TextButton';
 
 interface Props {
     isModify: boolean;
@@ -67,17 +68,17 @@ const ProfileInfoView = ({
                     />
                     {errors.introduction && <ErrorMsg>소개 형식에 맞게 변경해주세요.</ErrorMsg>}
                     <BtnWrapper>
-                        <TextBtn onClick={onChangeModify} fontSize="1.6rem" color={colors.grey2}>
+                        <TextButton onClick={onChangeModify} fontSize="1.6rem" color={colors.grey2}>
                             취소
-                        </TextBtn>
-                        <TextBtn
+                        </TextButton>
+                        <TextButton
                             onClick={onSubmit}
                             disabled={isModifyProfileLoading}
                             fontSize="1.6rem"
                             color={colors.sandyBrown}
                         >
                             저장
-                        </TextBtn>
+                        </TextButton>
                     </BtnWrapper>
                 </>
             ) : (
@@ -86,9 +87,9 @@ const ProfileInfoView = ({
                     {introduction && <Desc>{introduction}</Desc>}
 
                     <BtnWrapper>
-                        <TextBtn onClick={onChangeModify} isUnderLine fontSize="1.6rem" color={colors.sandyBrown}>
+                        <TextButton onClick={onChangeModify} isUnderLine fontSize="1.6rem" color={colors.sandyBrown}>
                             수정
-                        </TextBtn>
+                        </TextButton>
                     </BtnWrapper>
                 </>
             )}

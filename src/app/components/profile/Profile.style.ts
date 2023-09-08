@@ -37,30 +37,6 @@ export const ImageLabel = styled.label`
     }
 `;
 
-type RectangleBtnType = {
-    backgroundColor: string;
-    color: string;
-    padding?: string;
-    maxWidth?: string;
-    margin?: string;
-};
-export const RectangleBtn = styled.button<RectangleBtnType>`
-    font-size: 1.6rem;
-    line-height: 1;
-    background-color: ${(props) => props.backgroundColor};
-    color: ${(props) => props.color};
-    font-weight: 700;
-    text-align: center;
-    padding: ${(props) => (props.padding ? props.padding : '8px 0')};
-    max-width: ${(props) => (props.maxWidth ? props.maxWidth : '150px')};
-    width: 100%;
-    border-radius: 4px;
-    margin: ${(props) => (props.margin ? props.margin : '0')};
-    &:hover {
-        opacity: 0.8;
-    }
-`;
-
 export const ProfileContainer = styled.section`
     border-top: 1px solid ${colors.grey10};
     padding: 24px 16px;
@@ -90,21 +66,6 @@ export const Desc = styled.span`
     font-size: 1.4rem;
     line-height: 2rem;
     color: ${colors.grey2};
-`;
-
-export const TextBtn = styled.button<{ fontSize: string; color: string; marginLeft?: string; isUnderLine?: boolean }>`
-    font-size: ${(props) => props.fontSize};
-    padding: 4px 6px;
-    color: ${(props) => props.color};
-    margin-left: ${(props) => props.marginLeft};
-    ${(props) =>
-        props.isUnderLine && {
-            textDecoration: 'underline',
-            textUnderlineOffset: '4px',
-        }}
-    &:hover {
-        opacity: 0.8;
-    }
 `;
 
 export const DeleteModalContainer = styled.div`

@@ -2,15 +2,24 @@
 import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
 import RecipeCategory from './RecipeCategory';
 import { styled } from 'styled-components';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import RecipeList from './RecipeList';
-import Link from 'next/link';
+
+import WriteIcon from '../../../../../public/svg/WriteIcon';
+import { useRouter } from 'next/navigation';
+import { FloatingButton } from '../../shared/button/FloatingButton';
 
 interface Props {
     type: keyof typeof RecipePostCategoryLabel | undefined;
 }
 
 const Main = ({ type }: Props) => {
+    const router = useRouter();
+
+    const onCreate = useCallback(() => {
+        router.push('/recipe/write');
+    }, []);
+
     const category: ValueOf<typeof RecipePostCategoryLabel> | undefined = useMemo(() => {
         if (typeof type === 'undefined') {
             return undefined;
@@ -21,11 +30,11 @@ const Main = ({ type }: Props) => {
 
     return (
         <Container>
-            <div>
-                <Link href={'/recipe/write'}>생성</Link>
-            </div>
             <RecipeCategory category={category} />
             <RecipeList category={category} />
+            <FloatingButton onClick={onCreate}>
+                <WriteIcon />
+            </FloatingButton>
         </Container>
     );
 };

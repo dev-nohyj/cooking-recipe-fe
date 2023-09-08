@@ -1,7 +1,8 @@
 import { ChangeEvent, RefObject } from 'react';
-import { ImageLabel, Img, ProfileImageContainer, RectangleBtn } from '../Profile.style';
+import { ImageLabel, Img, ProfileImageContainer } from '../Profile.style';
 import { commonImages } from '../../../../../public/images';
 import { colors } from '@/asset/colors';
+import { RectangleButton } from '../../shared/button/RectangleButton';
 
 interface Props {
     profileImageRef: RefObject<HTMLInputElement>;
@@ -35,9 +36,9 @@ const ProfileimageView = ({
                 disabled={isImageLoading}
             />
             <ImageLabel htmlFor="profileImage">이미지 업로드</ImageLabel>
-            <RectangleBtn color={colors.sandyBrown} backgroundColor={colors.white} onClick={onDeleteImage}>
+            <RectangleButton color={colors.sandyBrown} backgroundColor={colors.white} onClick={onDeleteImage}>
                 이미지 제거
-            </RectangleBtn>
+            </RectangleButton>
         </ProfileImageContainer>
     );
 };
