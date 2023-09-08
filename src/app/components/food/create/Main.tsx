@@ -92,7 +92,7 @@ const Main = ({}: Props) => {
     });
 
     const onUploadImg = useCallback(
-        async (e: ChangeEvent<HTMLInputElement>) => {
+        (e: ChangeEvent<HTMLInputElement>) => {
             if (e.target.files?.length) {
                 if (watch('foodImages').length > 5) {
                     alert('최대 이미지 갯수를 초과했습니다.');
