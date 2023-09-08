@@ -1,1 +1,1 @@
-export const hideHeaderPage = ['/recipe/write', '/food/write'];
+export const hideHeaderPage = ['/recipe/write', '/food/write', '/loginFailure'];

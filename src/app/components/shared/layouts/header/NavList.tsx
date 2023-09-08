@@ -1,17 +1,15 @@
-import { colors } from '@/asset/colors';
-import Image from 'next/image';
+import Link from 'next/link';
 import { styled } from 'styled-components';
-import { commonImages } from '../../../../../../public/images';
+import { MobileSize } from '@/asset/const/deviceSize';
+import { colors } from '@/asset/colors';
 import { MutableRefObject } from 'react';
 import TopTabToggleIcon from '../../../../../../public/svg/TopTabToggleIcon';
-import LoginModal from '../../modals/LoginModal';
-import Link from 'next/link';
+import { commonImages } from '../../../../../../public/images';
+import Image from 'next/image';
+import { nanoid } from 'nanoid';
 
 interface Props {
-    isLoginModalVisible: boolean;
     onChangeLoginModalVisible: () => void;
-    isSignupState: boolean;
-    onChangeState: () => void;
     isLoading: boolean;
     onLogout: () => void;
     isLogin: boolean;
@@ -19,13 +17,15 @@ interface Props {
     modalRef: MutableRefObject<null>;
     isActive: boolean;
     onTargetClick: () => void;
+    navList: {
+        title: string;
+        href: string;
+        isActive: boolean;
+    }[];
 }
 
-const AuthTab = ({
-    isLoginModalVisible,
+const NavList = ({
     onChangeLoginModalVisible,
-    isSignupState,
-    onChangeState,
     isLoading,
     onLogout,
     isLogin,
@@ -33,23 +33,30 @@ const AuthTab = ({
     modalRef,
     isActive,
     onTargetClick,
+    navList,
 }: Props) => {
     return (
-        <>
+        <Container>
+            {navList.map((item) => {
+                return (
+                    <li key={`navItem-${nanoid(6)}`}>
+                        <NavItem isActive={item.isActive} href={item.href}>
+                            {item.title}
+                        </NavItem>
+                    </li>
+                );
+            })}
+            <HorizontalGap />
             {isLogin ? (
                 <li>
                     <div ref={modalRef}>
                         <ProfileButton onClick={onTargetClick}>
-                            {!!profileImageUrl ? (
-                                <Image src={profileImageUrl} alt={'profileImage'} width={40} height={40} />
-                            ) : (
-                                <Image
-                                    src={commonImages.defaultProfileSm.uri}
-                                    alt={'profileImage'}
-                                    width={40}
-                                    height={40}
-                                />
-                            )}
+                            <Img
+                                src={profileImageUrl ? profileImageUrl : commonImages.defaultProfileSm.uri}
+                                alt={'profileImage'}
+                                width={40}
+                                height={40}
+                            />
                             <TopTabToggleIcon />
                         </ProfileButton>
                         {isActive && (
@@ -69,17 +76,34 @@ const AuthTab = ({
                     <Login onClick={onChangeLoginModalVisible}>로그인</Login>
                 </li>
             )}
-            {isLoginModalVisible && (
-                <LoginModal
-                    isLoginModalVisible={isLoginModalVisible}
-                    onChangeLoginModalVisible={onChangeLoginModalVisible}
-                    isSignupState={isSignupState}
-                    onChangeState={onChangeState}
-                />
-            )}
-        </>
+        </Container>
     );
 };
+
+const Container = styled.ul`
+    display: flex;
+    align-items: center;
+    height: 100%;
+    @media only screen and (max-width: ${MobileSize}) {
+        display: none;
+    }
+`;
+
+const NavItem = styled(Link)<{ isActive: boolean }>`
+    display: block;
+    margin-left: 1.6rem;
+    color: ${(props) => (props.isActive ? colors.sandyBrown : colors.grey1)};
+    font-size: 1.3rem;
+    line-height: 2rem;
+    padding: 20px 0;
+    font-weight: 500;
+`;
+
+const HorizontalGap = styled.div`
+    width: 1px;
+    height: 16px;
+    margin: 0 16px;
+`;
 
 const Login = styled.button`
     height: 3.2rem;
@@ -138,5 +162,8 @@ const LogoutBtn = styled.button`
         color: ${colors.sandyBrown};
     }
 `;
+const Img = styled(Image)`
+    border-radius: 50%;
+`;
 
-export default AuthTab;
+export default NavList;

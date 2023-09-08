@@ -1,5 +1,5 @@
 import { Pretendard } from '../../public/fonts';
-import Header from './components/shared/layouts/Header';
+import Header from './components/shared/layouts/header';
 import Head from './head';
 import Provider from './provider';
 
