@@ -7,6 +7,7 @@ import ProfileImage from './profileImage';
 import ProfileInfo from './profileInfo';
 import DeleteProfile from './deleteProfile';
 import { useRouter } from 'next/navigation';
+import ProfileProvider from './profileProvider';
 
 interface Props {}
 
@@ -31,6 +32,7 @@ const Main = ({}: Props) => {
     return (
         <Container>
             <ProfileImage profileImageUrl={data.profile.profileImageUrl} />
+            <ProfileProvider email={data.profile.email} provider={data.profile.provider} />
             <ProfileInfo nickname={data.profile.nickname} introduction={data.profile.introduction} />
             <DeleteProfile />
         </Container>

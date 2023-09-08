@@ -62,10 +62,18 @@ export const Title = styled.p`
     font-weight: 700;
 `;
 
-export const Desc = styled.span`
+export const Text = styled.p`
+    margin: 16px 0;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: ${colors.black};
+`;
+
+export const Desc = styled.span<{ padding?: string }>`
     font-size: 1.4rem;
     line-height: 2rem;
     color: ${colors.grey2};
+    padding: ${(props) => props.padding};
 `;
 
 export const DeleteModalContainer = styled.div`
@@ -91,4 +99,9 @@ export const ErrorMsg = styled.span`
     color: ${colors.red};
     font-size: 1rem;
     margin-bottom: 8px;
+`;
+
+export const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
 `;

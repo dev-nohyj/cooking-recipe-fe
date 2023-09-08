@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { styled } from 'styled-components';
 import { colors } from '@/asset/colors';
 import { usePathname, useRouter } from 'next/navigation';
-import { hideHeaderPage } from '@/asset/labels/hideRoutePage';
+import { hideHeaderPage } from '@/asset/const/hideRoutePage';
 import NavList from './NavList';
 import MobileNavList from './MobileNavList';
 import { useCallback, useMemo, useRef } from 'react';
