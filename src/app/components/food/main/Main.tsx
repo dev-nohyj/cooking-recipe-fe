@@ -12,6 +12,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { styled } from 'styled-components';
 import { FloatingButton } from '../../shared/button/FloatingButton';
 import WriteIcon from '../../../../../public/svg/WriteIcon';
+import EmptyList from '../../shared/layouts/EmptyList';
 
 interface Props {}
 
@@ -67,7 +68,14 @@ const Main = ({}: Props) => {
     }, []);
 
     if (isLoading || error) return <></>;
-    if (foodPostList.length === 0) return <>empty list</>;
+    if (foodPostList.length === 0)
+        return (
+            <EmptyList
+                title={'게시물이 존재하지 않습니다.'}
+                desc={'게시물을 추가해서 음식 사진을 공유해세요!'}
+                onCreate={onCreate}
+            />
+        );
 
     return (
         <Container>

@@ -61,9 +61,9 @@ const Navigation = ({}: Props) => {
 
     const navList = useMemo(() => {
         return [
-            { title: 'Recipe', href: '/recipe', isActive: pathname.includes('recipe') },
-            { title: 'Food', href: '/food', isActive: pathname.includes('food') },
-            { title: 'Ai', href: '/recipe', isActive: pathname.includes('ai') },
+            { title: 'Recipe', href: '/recipe', isActive: pathname.startsWith('/recipe') },
+            { title: 'Food', href: '/food', isActive: pathname.startsWith('/food') },
+            { title: 'Ai', href: '/recipe', isActive: pathname.startsWith('/ai') },
         ];
     }, [pathname]);
 
