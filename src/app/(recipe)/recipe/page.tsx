@@ -1,5 +1,5 @@
 import Main from '@/app/components/recipe/main/Main';
-import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
+import { CategoryAllType, RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
 import { redirect } from 'next/navigation';
 
 interface Props {
@@ -7,11 +7,12 @@ interface Props {
 }
 
 const RecipeMainPage = ({ searchParams: { type } }: Props) => {
-    const allType = ['korean', 'chinese', 'japanese', 'western', 'etc', undefined];
-    if (!allType.includes(type)) {
+    if (!CategoryAllType.includes(type)) {
         redirect('/recipe');
     }
-    return <Main type={type} />;
+    const category = typeof type === 'undefined' ? undefined : RecipePostCategoryLabel[type];
+
+    return <Main category={category} />;
 };
 
 export default RecipeMainPage;

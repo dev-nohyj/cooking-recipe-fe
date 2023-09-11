@@ -1,39 +1,42 @@
 import { GetProfileQueryKey, TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 import { useLikeRecipePostMutation } from '@/apis/recipePost/mutations/useLikeRecipePostMutation';
-import { TGetRecipePostData, TRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
-import { colors } from '@/asset/colors';
-import { blurDataURL } from '@/asset/const/blurUrl';
-import { LikeTypeLabel } from '@/asset/labels/recipePostLabel';
+import {
+    TGetRecipePostData,
+    TRecipePostData,
+    useGetRecipePostQuery,
+} from '@/apis/recipePost/queries/useGetRecipePostQuery';
+import { RecipePostDetailQueryKey, TRecipePostDetailData } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
+import { LikeTypeLabel, RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { CSSProperties, useCallback, useMemo } from 'react';
-import { styled } from 'styled-components';
+import { useCallback, useEffect, useMemo } from 'react';
+import RecipeList from './RecipeList';
 
 interface Props {
-    data: TRecipePostData;
+    category: ValueOf<typeof RecipePostCategoryLabel> | undefined;
 }
 
-const RecipePost = ({ data }: Props) => {
+const RecipePost = ({ category }: Props) => {
     const router = useRouter();
     const cache = useQueryClient();
-    const user = cache.getQueryData<TGetProfileData>(GetProfileQueryKey());
-    const { id, title, thumbnailUrl, author, isLike, likeCount } = data;
 
-    const onRouter = useCallback(() => {
+    const onCreate = useCallback(() => {
+        router.push('/recipe/write');
+    }, []);
+
+    const onDetail = useCallback((id: number) => {
         router.push(`/recipe/detail/${id}`);
     }, []);
-    const imageStyle = useMemo(() => {
-        return { borderRadius: '12px' } as CSSProperties;
-    }, []);
-    const { mutate, isLoading } = useLikeRecipePostMutation({
+
+    const { data, fetchNextPage, isLoading, error } = useGetRecipePostQuery({ category }, { keepPreviousData: true });
+    const user = cache.getQueryData<TGetProfileData>(GetProfileQueryKey());
+
+    const { mutate, isLoading: isLikeLoading } = useLikeRecipePostMutation({
         onError: (err) => {
             alert(err.response?.data.message ?? '에러가 발생했습니다.');
         },
         onSuccess: (_, variables) => {
-            // detail cache
-
             cache.setQueriesData<InfiniteData<TGetRecipePostData>>(['recipeList'], (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {
@@ -54,100 +57,65 @@ const RecipePost = ({ data }: Props) => {
                     return newData;
                 }
             });
+            cache.setQueryData<TRecipePostDetailData>(
+                RecipePostDetailQueryKey({ recipePostId: variables.recipePostId }),
+                (prev) => {
+                    if (prev) {
+                        const newData = produce(prev, (draft) => {
+                            if (variables.likeType === LikeTypeLabel.like) {
+                                draft.isLike = true;
+                                draft.likeCount = draft.likeCount + 1;
+                            } else {
+                                draft.isLike = false;
+                                draft.likeCount = draft.likeCount - 1;
+                            }
+                        });
+                        return newData;
+                    }
+                },
+            );
         },
     });
-    const onLike = useCallback(() => {
-        // check auth
-        if (!user?.profile) {
-            return alert('로그인이 필요합니다.');
-        }
-        mutate({
-            recipePostId: data.id,
-            likeType: data.isLike ? LikeTypeLabel.unLike : LikeTypeLabel.like,
-        });
-    }, [data.id, data.isLike, user?.profile]);
-    return (
-        <Card onClick={onRouter}>
-            <Img
-                src={thumbnailUrl}
-                alt={`thumbnail-${id}`}
-                width={300}
-                height={180}
-                style={imageStyle}
-                placeholder="blur"
-                blurDataURL={blurDataURL}
-            />
-            <Content>
-                <Title>{title}</Title>
-                <BottomWrapper>
-                    <UserInfo>
-                        {/* {author.profileImageUrl && image} */}
-                        <span>{author.nickname}</span>
-                    </UserInfo>
-                    <button
-                        disabled={isLoading}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onLike();
-                        }}
-                    >
-                        {isLike ? 'unLike' : 'like'} {likeCount}
-                    </button>
-                    {/* <CopyToClipboard text={``} onCopy={onCopy}>
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                            }}
-                        >
-                            <ClipboardIcon />
-                        </button>
-                    </CopyToClipboard> */}
-                </BottomWrapper>
-            </Content>
-        </Card>
+
+    const onLike = useCallback(
+        (recipePostId: number, likeType: boolean) => {
+            if (!user?.profile) {
+                return alert('로그인이 필요합니다.');
+            }
+            mutate({
+                recipePostId,
+                likeType: likeType ? LikeTypeLabel.unLike : LikeTypeLabel.like,
+            });
+        },
+        [user?.profile],
     );
+    useEffect(() => {
+        if (error) {
+            alert(error.response?.data.message ?? '에러가 발생했습니다.');
+        }
+    }, [error]);
+
+    const { recipePostList, hasMore } = useMemo(() => {
+        if (!data || data.pages[0].recipePostList.length === 0) return { recipePostList: [], hasMore: false };
+        let recipePostList: TRecipePostData[] = [];
+        data.pages.forEach((list) => {
+            recipePostList = [...recipePostList, ...list.recipePostList];
+        });
+        return { recipePostList, hasMore: data.pages[data.pages.length - 1].hasMore };
+    }, [data?.pages]);
+
+    const props = {
+        recipePostList,
+        hasMore,
+        fetchNextPage,
+        onCreate,
+        onDetail,
+        onLike,
+        isLoading,
+        isLikeLoading,
+    };
+
+    return <RecipeList {...props} />;
 };
-const Card = styled.div`
-    width: 300px;
-    flex: 0 0 auto;
-    cursor: pointer;
-`;
-const Img = styled(Image)`
-    width: 100%;
-    height: auto;
-`;
-const Content = styled.div`
-    margin-top: 10px;
-    padding: 0 4px;
-`;
-
-const Title = styled.p`
-    margin: 4px 0 16px;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: -0.05em;
-    font-weight: 600;
-    color: ${colors.black};
-    overflow: hidden;
-    text-overflow: ellipsis;
-`;
-
-const BottomWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
-const UserInfo = styled.div`
-    font-weight: 200;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: -0.05em;
-    color: ${colors.black};
-    display: flex;
-    align-items: center;
-    & span {
-        margin-left: 5px;
-    }
-`;
 
 export default RecipePost;

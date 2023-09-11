@@ -70,7 +70,7 @@ const RecipePost = ({ recipePostId }: Props) => {
                         </button>
                     </div>
                 )}
-
+                <p>{data.isLike ? 'like' : 'unLike'}</p>
                 <TopSection date={data.createdAt} title={data.title} category={data.category} />
                 <div
                     className="recipePost"

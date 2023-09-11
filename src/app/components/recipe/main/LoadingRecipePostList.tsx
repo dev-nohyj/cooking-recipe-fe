@@ -7,15 +7,15 @@ interface Props {}
 const LoadingRecipePostList = ({}: Props) => {
     return (
         <Container>
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
-            <Skeleton width={300} height={265} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
+            <Skeleton width={300} height={255} borderRadius={12} />
         </Container>
     );
 };

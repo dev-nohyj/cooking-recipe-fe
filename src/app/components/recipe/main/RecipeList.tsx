@@ -1,44 +1,64 @@
-'use client';
-import { TRecipePostData, useGetRecipePostQuery } from '@/apis/recipePost/queries/useGetRecipePostQuery';
-import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
-import { useEffect, useMemo } from 'react';
+import { TRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { styled } from 'styled-components';
-import RecipePost from './RecipePost';
+import RecipePost from './RecipePostCard';
 import LoadingRecipePostList from './LoadingRecipePostList';
+import EmptyList from '../../shared/layouts/EmptyList';
+import { FloatingButton } from '../../shared/button/FloatingButton';
+import WriteIcon from '../../../../../public/svg/WriteIcon';
 
 interface Props {
-    category: ValueOf<typeof RecipePostCategoryLabel> | undefined;
+    recipePostList: TRecipePostData[];
+    hasMore: boolean;
+    fetchNextPage: () => void;
+    onCreate: () => void;
+    onDetail: (id: number) => void;
+    onLike: (recipePostId: number, likeType: boolean) => void;
+    isLoading: boolean;
+    isLikeLoading: boolean;
 }
 
-const RecipeList = ({ category }: Props) => {
-    const { data, fetchNextPage, isLoading, error } = useGetRecipePostQuery({ category }, { keepPreviousData: true });
+const RecipeList = ({
+    recipePostList,
+    hasMore,
+    fetchNextPage,
+    onCreate,
+    onDetail,
+    onLike,
+    isLoading,
+    isLikeLoading,
+}: Props) => {
+    if (isLoading) return <LoadingRecipePostList />;
+    if (recipePostList.length === 0)
+        return (
+            <EmptyList
+                title={'게시물이 존재하지 않습니다.'}
+                desc={'게시물을 추가해서 나만의 레시피를 공유해세요!'}
+                onCreate={onCreate}
+            />
+        );
 
-    useEffect(() => {
-        if (error) {
-            alert(error.response?.data.message ?? '에러가 발생했습니다.');
-        }
-    }, [error]);
-
-    const { recipePostList, hasMore } = useMemo(() => {
-        if (!data || data.pages[0].recipePostList.length === 0) return { recipePostList: [], hasMore: false };
-        let recipePostList: TRecipePostData[] = [];
-        data.pages.forEach((list) => {
-            recipePostList = [...recipePostList, ...list.recipePostList];
-        });
-        return { recipePostList, hasMore: data.pages[data.pages.length - 1].hasMore };
-    }, [data?.pages]);
-
-    if (isLoading || error) return <LoadingRecipePostList />;
-    if (recipePostList.length === 0) return <>empty list</>;
     return (
-        <InfiniteScroll dataLength={recipePostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
-            <Container>
-                {recipePostList.map((v) => {
-                    return <RecipePost key={`recipePost-${v.id}`} data={v} />;
-                })}
-            </Container>
-        </InfiniteScroll>
+        <>
+            <InfiniteScroll dataLength={recipePostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
+                <Container>
+                    {recipePostList.map((recipePost) => {
+                        return (
+                            <RecipePost
+                                key={`recipePost-${recipePost.id}`}
+                                data={recipePost}
+                                onDetail={onDetail}
+                                onLike={onLike}
+                                isLikeLoading={isLikeLoading}
+                            />
+                        );
+                    })}
+                </Container>
+            </InfiniteScroll>
+            <FloatingButton onClick={onCreate}>
+                <WriteIcon />
+            </FloatingButton>
+        </>
     );
 };
 

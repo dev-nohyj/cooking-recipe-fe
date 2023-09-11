@@ -14,5 +14,6 @@ export const FloatingButton = styled.button<Props>`
     border-radius: 50%;
     background-color: ${colors.sandyBrown};
     opacity: 0.8;
+    z-index: 100;
     ${(props) => props.btnStyle && props.btnStyle};
 `;
