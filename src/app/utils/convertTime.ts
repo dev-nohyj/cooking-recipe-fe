@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const convertTime = (time: string) => {
+export const convertTime = (time: Date) => {
     const milliSeconds = new Date().getTime() - new Date(time).getTime();
     const seconds = milliSeconds / 1000;
     if (seconds < 60) return `방금 전`;

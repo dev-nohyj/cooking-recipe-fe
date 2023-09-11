@@ -1,3 +1,4 @@
+export const CategoryAllType = ['korean', 'chinese', 'japanese', 'western', 'etc', undefined];
 export const RecipePostCategoryLabel = {
     korean: 1,
     chinese: 2,
