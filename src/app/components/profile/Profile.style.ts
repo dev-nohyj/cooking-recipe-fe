@@ -76,21 +76,6 @@ export const Desc = styled.span<{ padding?: string }>`
     padding: ${(props) => props.padding};
 `;
 
-export const DeleteModalContainer = styled.div`
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-`;
-export const DeleteModalTitle = styled.p`
-    text-align: center;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    color: ${colors.black};
-    font-weight: 500;
-`;
-
 export const BtnWrapper = styled.div`
     align-self: flex-end;
 `;

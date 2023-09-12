@@ -1,7 +1,7 @@
 import { colors } from '@/asset/colors';
 import { Desc, ProfileContainer, Title } from '../Profile.style';
-import DeleteConfirmModal from './DeleteConfirmModal';
 import { RectangleButton } from '../../shared/button/RectangleButton';
+import CheckConfirmModal from '../../shared/modal/CheckConfirmModal';
 
 interface Props {
     isVisibleModal: boolean;
@@ -26,11 +26,12 @@ const DeleteProfileView = ({ isVisibleModal, onChangeVisibleModal, onDelete, isD
                 <Desc>탈퇴 시 작성하신 게시물은 모두 삭제되며 복구되지 않습니다.</Desc>
             </ProfileContainer>
             {isVisibleModal && (
-                <DeleteConfirmModal
+                <CheckConfirmModal
                     isVisibleModal={isVisibleModal}
                     onChangeVisibleModal={onChangeVisibleModal}
-                    onDelete={onDelete}
-                    isDeleteLoading={isDeleteLoading}
+                    onClick={onDelete}
+                    isLoading={isDeleteLoading}
+                    title={'정말로 탈퇴 하시겠습니까?'}
                 />
             )}
         </>

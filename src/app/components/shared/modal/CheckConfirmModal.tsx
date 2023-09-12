@@ -1,18 +1,19 @@
+import { ModalWrapper } from '@/app/styles/ModalFade.style';
 import { colors } from '@/asset/colors';
 import { useEffect, useMemo } from 'react';
 import ReactModal from 'react-modal';
-import { BtnWrapper, DeleteModalContainer, DeleteModalTitle } from '../Profile.style';
-import { ModalWrapper } from '../../../styles/ModalFade.style';
-import { TextButton } from '../../shared/button/TextButton';
+import { TextButton } from '../button/TextButton';
+import { styled } from 'styled-components';
 
 interface Props {
     isVisibleModal: boolean;
     onChangeVisibleModal: (v?: any) => void;
-    onDelete: () => void;
-    isDeleteLoading: boolean;
+    onClick: () => void;
+    isLoading: boolean;
+    title: string;
 }
 
-const DeleteConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onDelete, isDeleteLoading }: Props) => {
+const CheckConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onClick, isLoading, title }: Props) => {
     useEffect(() => {
         document.body.className = 'modal_open';
 
@@ -60,15 +61,15 @@ const DeleteConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onDelete, is
                 );
             }}
         >
-            <DeleteModalContainer>
-                <DeleteModalTitle>정말로 탈퇴 하시겠습니까?</DeleteModalTitle>
+            <Container>
+                <Title>{title}</Title>
                 <BtnWrapper>
                     <TextButton fontSize={'1.4rem'} onClick={onChangeVisibleModal} color={colors.black}>
                         닫기
                     </TextButton>
                     <TextButton
-                        disabled={isDeleteLoading}
-                        onClick={onDelete}
+                        disabled={isLoading}
+                        onClick={onClick}
                         fontSize={'1.4rem'}
                         color={colors.sandyBrown}
                         marginLeft="10px"
@@ -76,9 +77,26 @@ const DeleteConfirmModal = ({ isVisibleModal, onChangeVisibleModal, onDelete, is
                         확인
                     </TextButton>
                 </BtnWrapper>
-            </DeleteModalContainer>
+            </Container>
         </ReactModal>
     );
 };
 
-export default DeleteConfirmModal;
+const Container = styled.div`
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+`;
+const Title = styled.p`
+    text-align: center;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: ${colors.black};
+    font-weight: 500;
+`;
+const BtnWrapper = styled.div`
+    align-self: flex-end;
+`;
+export default CheckConfirmModal;
