@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
-import EditorComponent from '../contents/EditorComponent';
+import EditorComponent from '../forms/EditorComponent';
 import { nanoid } from 'nanoid';
 import BottomSction from '../create/BottomSction';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
