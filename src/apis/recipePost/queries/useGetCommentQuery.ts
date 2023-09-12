@@ -8,7 +8,6 @@ export type TRecipePostCommentData = {
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date | null;
-    replyCount: number;
 };
 export type TGetCommentData = {
     hasMore: boolean;

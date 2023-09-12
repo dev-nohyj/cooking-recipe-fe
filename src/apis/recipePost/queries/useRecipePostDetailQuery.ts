@@ -15,6 +15,7 @@ export type TRecipePostDetailData = {
         id: string;
         nickname: string;
         profileImageUrl: string | null;
+        introduction: string | null;
     };
     isLike: boolean;
     likeCount: number;
