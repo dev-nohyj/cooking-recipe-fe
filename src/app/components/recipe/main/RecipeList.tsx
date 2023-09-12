@@ -1,7 +1,7 @@
 import { TRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { styled } from 'styled-components';
-import RecipePost from './RecipePostCard';
+import RecipePostCard from './RecipePostCard';
 import LoadingRecipePostList from './LoadingRecipePostList';
 import EmptyList from '../../shared/layouts/EmptyList';
 import { FloatingButton } from '../../shared/button/FloatingButton';
@@ -44,7 +44,7 @@ const RecipeList = ({
                 <Container>
                     {recipePostList.map((recipePost) => {
                         return (
-                            <RecipePost
+                            <RecipePostCard
                                 key={`recipePost-${recipePost.id}`}
                                 data={recipePost}
                                 onDetail={onDetail}

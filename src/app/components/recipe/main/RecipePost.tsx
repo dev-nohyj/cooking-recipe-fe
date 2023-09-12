@@ -80,7 +80,7 @@ const RecipePost = ({ category }: Props) => {
     const onLike = useCallback(
         (recipePostId: number, likeType: boolean) => {
             if (!user?.profile) {
-                return alert('로그인이 필요합니다.');
+                return;
             }
             mutate({
                 recipePostId,

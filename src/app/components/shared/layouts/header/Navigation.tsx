@@ -52,6 +52,7 @@ const Navigation = ({}: Props) => {
                 return prev;
             });
             router.replace('/');
+            router.refresh();
         },
     });
 
