@@ -138,9 +138,14 @@ const Container = styled.article`
         padding: 5% 20px 0;
     }
     @media only screen and (max-width: ${MobileSize}) {
+        max-width: 414px;
+        padding: 5% 16px 0;
+    }
+    @media only screen and (max-width: 414px) {
         max-width: 335px;
         padding: 5% 0 0;
     }
+
     .recipePost p {
         font-size: 24px;
         line-height: 1.42em;
@@ -148,7 +153,7 @@ const Container = styled.article`
         color: #000000;
         font-weight: 300;
         white-space: pre-line;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 16px;
             line-height: 1.2em;
         }
@@ -161,7 +166,7 @@ const Container = styled.article`
         letter-spacing: -0.03em;
         color: #000000;
         white-space: pre-line;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 24px;
             line-height: 1.2em;
         }
@@ -174,7 +179,7 @@ const Container = styled.article`
         letter-spacing: -0.03em;
         color: #000000;
         white-space: pre-line;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 24px;
             line-height: 1.2em;
         }
@@ -190,7 +195,7 @@ const Container = styled.article`
         letter-spacing: -0.03em;
         color: #000000;
         white-space: pre-line;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 16px;
             line-height: 1.2em;
             margin-left: 15px;
@@ -237,7 +242,7 @@ const Container = styled.article`
         white-space: pre-line;
         min-height: 16px;
         padding-left: 0.2em;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 16px;
             line-height: 19px;
         }
@@ -254,7 +259,7 @@ const Container = styled.article`
         white-space: pre-line;
         min-height: 16px;
         padding-left: 0.2em;
-        @media only screen and (max-width: 430px) {
+        @media only screen and (max-width: ${MobileSize}) {
             font-size: 16px;
             line-height: 19px;
         }
@@ -283,6 +288,7 @@ const Container = styled.article`
         -webkit-filter: unset;
     }
 `;
+
 const ButtonWrapper = styled.section`
     display: flex;
     align-items: center;

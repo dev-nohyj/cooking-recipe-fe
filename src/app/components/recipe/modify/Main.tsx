@@ -1,12 +1,12 @@
 'use client';
 
-import { styled } from 'styled-components';
 import ModifyForm from './ModifyForm';
 import { useRecipePostDetailQuery } from '@/apis/recipePost/queries/useRecipePostDetailQuery';
 import { useQueryClient } from '@tanstack/react-query';
 import { GetProfileQueryKey, TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 import { useRouter } from 'next/navigation';
 import { useLayoutEffect } from 'react';
+import { Container } from '../forms/Form.style';
 
 interface Props {
     recipePostId: number;
@@ -24,17 +24,7 @@ const Main = ({ recipePostId }: Props) => {
         }
     }, []);
 
-    return (
-        <Container>
-            <ModifyForm recipePostData={data!} />
-        </Container>
-    );
+    return <ModifyForm recipePostData={data!} />;
 };
-
-const Container = styled.main`
-    position: relative;
-    max-width: 1024px;
-    margin: 0 auto;
-`;
 
 export default Main;

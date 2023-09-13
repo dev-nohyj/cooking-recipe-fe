@@ -1,28 +1,34 @@
 import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
 import { useCreateRecipePostMutation } from '@/apis/recipePost/mutations/useCreateRecipePostMutation';
 import { RecipePostSchema } from '@/app/utils/schema/recipePostSchema';
-import { colors } from '@/asset/colors';
 import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
-import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
+import { RecipePostCategoryLabel, categoryValue } from '@/asset/labels/recipePostLabel';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
-import { ChangeEvent, useCallback, useRef } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { styled } from 'styled-components';
-import EditorComponent from '../forms/EditorComponent';
-import { nanoid } from 'nanoid';
-import BottomSction from './BottomSction';
+import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import SubmitSection from '../forms/SubmitSection';
 import { useRouter } from 'next/navigation';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
 import { TGetRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import { produce } from 'immer';
+import CategoryDropdown from '../forms/CategoryDropdown';
+import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
+import { Container } from '../forms/Form.style';
+import InputSection from '../forms/InputSection';
+import EditorComponent from '../forms/editorComponent';
 
 interface Props {}
 
 const RegisterForm = ({}: Props) => {
     const router = useRouter();
     const cache = useQueryClient();
+    const categoryRef = useRef(null);
+    const [isActive, onTargetClick] = useOutsideClick(categoryRef);
 
+    const goBack = useCallback(() => {
+        router.back();
+    }, []);
     const uploadInputRef = useRef<HTMLInputElement>(null);
 
     const { handleSubmit, control, setValue, watch } = useForm({
@@ -35,6 +41,52 @@ const RegisterForm = ({}: Props) => {
         },
         resolver: yupResolver(RecipePostSchema),
     });
+
+    const categoryList = [
+        {
+            title: '한식',
+            onClick: () => {
+                onTargetClick();
+                setValue('category', RecipePostCategoryLabel.korean);
+            },
+            isActive: watch('category') === RecipePostCategoryLabel.korean,
+        },
+        {
+            title: '중식',
+            onClick: () => {
+                onTargetClick();
+                setValue('category', RecipePostCategoryLabel.chinese);
+            },
+            isActive: watch('category') === RecipePostCategoryLabel.chinese,
+        },
+        {
+            title: '일식',
+            onClick: () => {
+                onTargetClick();
+                setValue('category', RecipePostCategoryLabel.japanese);
+            },
+            isActive: watch('category') === RecipePostCategoryLabel.japanese,
+        },
+        {
+            title: '양식',
+            onClick: () => {
+                onTargetClick();
+                setValue('category', RecipePostCategoryLabel.western);
+            },
+            isActive: watch('category') === RecipePostCategoryLabel.western,
+        },
+        {
+            title: '기타',
+            onClick: () => {
+                onTargetClick();
+                setValue('category', RecipePostCategoryLabel.etc);
+            },
+            isActive: watch('category') === RecipePostCategoryLabel.etc,
+        },
+    ];
+    const categoryText = useMemo(() => {
+        return categoryValue[watch('category')];
+    }, [watch('category')]);
     const setTags = useCallback((tags: string[]) => {
         setValue('tags', tags);
     }, []);
@@ -120,106 +172,38 @@ const RegisterForm = ({}: Props) => {
             });
         }
     }, []);
-
+    const categoryProps = {
+        categoryRef,
+        isActive,
+        onTargetClick,
+        categoryList,
+        categoryText,
+    };
+    const inputProps = {
+        uploadInputRef,
+        onUploadImg,
+        isLoading,
+        watch,
+        control,
+        inputHashTag,
+        addHashTag,
+        onDeleteTag,
+        onKeyDownHandler,
+        onChangeHashTagInput,
+    };
+    const submitProps = {
+        onSubmit,
+        isLoading: isCreateLoading,
+        onCancel: goBack,
+    };
     return (
-        <>
-            <Container>
-                <div>
-                    <FileInput
-                        ref={uploadInputRef}
-                        type="file"
-                        id="imgeUpload"
-                        onChange={onUploadImg}
-                        disabled={isLoading}
-                        accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
-                    />
-                    <Label htmlFor="imgeUpload">
-                        {watch('thumbnailUrl') === '' ? '썸네일 업로드' : watch('thumbnailUrl')}
-                    </Label>
-                </div>
-                <div>
-                    <Controller
-                        control={control}
-                        name="title"
-                        render={({ field: { onChange, value } }) => {
-                            return (
-                                <input
-                                    type="text"
-                                    placeholder="제목"
-                                    value={value}
-                                    onChange={onChange}
-                                    maxLength={50}
-                                />
-                            );
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        name="category"
-                        render={({ field: { value, onChange } }) => {
-                            return (
-                                <select
-                                    name="카테고리"
-                                    value={value}
-                                    onChange={(e) => {
-                                        onChange(Number(e.target.value));
-                                    }}
-                                >
-                                    <option value={RecipePostCategoryLabel.korean}>한식</option>
-                                    <option value={RecipePostCategoryLabel.chinese}>중식</option>
-                                    <option value={RecipePostCategoryLabel.japanese}>일식</option>
-                                    <option value={RecipePostCategoryLabel.western}>양식</option>
-                                    <option value={RecipePostCategoryLabel.etc}>기타</option>
-                                </select>
-                            );
-                        }}
-                    />
-                </div>
-                <EditorComponent control={control} />
-                <div>
-                    <p>HashTag (최대 5개)</p>
-                    {watch('tags').length > 0 &&
-                        watch('tags').map((tag, idx) => {
-                            return (
-                                <span
-                                    onClick={() => {
-                                        onDeleteTag(idx);
-                                    }}
-                                    key={`tag-${nanoid(6)}`}
-                                >
-                                    {tag}
-                                </span>
-                            );
-                        })}
-                    <input
-                        type="text"
-                        value={inputHashTag}
-                        onKeyUp={addHashTag}
-                        onKeyDown={onKeyDownHandler}
-                        onChange={onChangeHashTagInput}
-                        maxLength={30}
-                    />
-                </div>
-            </Container>
-            <BottomSction onSubmit={onSubmit} isLoading={isCreateLoading} />
-        </>
+        <Container>
+            <CategoryDropdown {...categoryProps} />
+            <InputSection {...inputProps} />
+            <EditorComponent control={control} />
+            <SubmitSection {...submitProps} />
+        </Container>
     );
 };
-
-const Container = styled.section`
-    max-width: 840px;
-    margin: 0 auto;
-    margin-top: 50px;
-`;
-
-const FileInput = styled.input`
-    display: none;
-`;
-
-const Label = styled.label`
-    border: 1px solid ${colors.black};
-    padding: 2px;
-    cursor: pointer;
-`;
 
 export default RegisterForm;
