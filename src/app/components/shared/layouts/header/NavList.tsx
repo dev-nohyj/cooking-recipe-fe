@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { MobileSize } from '@/asset/const/deviceSize';
 import { colors } from '@/asset/colors';
 import { MutableRefObject } from 'react';
-import TopTabToggleIcon from '../../../../../../public/svg/TopTabToggleIcon';
+import ToggleIcon from '../../../../../../public/svg/ToggleIcon';
 import { commonImages } from '../../../../../../public/images';
 import Image from 'next/image';
 import { nanoid } from 'nanoid';
@@ -58,7 +58,7 @@ const NavList = ({
                                 width={40}
                                 height={40}
                             />
-                            <TopTabToggleIcon />
+                            <ToggleIcon />
                         </ProfileButton>
                         {isActive && (
                             <DropdownContainer>

@@ -1,6 +1,6 @@
 interface Props {}
 
-const TopTabToggleIcon = ({}: Props) => {
+const ToggleIcon = ({}: Props) => {
     return (
         <>
             <svg
@@ -18,4 +18,4 @@ const TopTabToggleIcon = ({}: Props) => {
     );
 };
 
-export default TopTabToggleIcon;
+export default ToggleIcon;
