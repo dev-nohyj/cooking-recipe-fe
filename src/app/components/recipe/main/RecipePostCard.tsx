@@ -30,15 +30,15 @@ const RecipePostCard = ({ data, onDetail, onLike, isLikeLoading }: Props) => {
                 placeholder="blur"
                 blurDataURL={blurDataURL}
             />
+
             <Content>
                 <Title>{title}</Title>
                 <Date>{convertTime(createdAt)}</Date>
                 <BottomWrapper>
                     <UserInfo>
-                        <Image
+                        <ProfileImage
                             width={24}
                             height={24}
-                            style={{ borderRadius: '50%' }}
                             src={author.profileImageUrl ? author.profileImageUrl : commonImages.defaultProfileSm.uri}
                             alt="profileImage"
                         />
@@ -68,8 +68,10 @@ const Card = styled.div`
         opacity: 0.8;
     }
 `;
+
 const Img = styled(Image)`
     width: 100%;
+    object-fit: none;
     border-radius: 12px;
 `;
 const Content = styled.div`
@@ -111,6 +113,9 @@ const UserInfo = styled.div`
     & span {
         margin-left: 5px;
     }
+`;
+const ProfileImage = styled(Image)`
+    border-radius: 50%;
 `;
 const Btn = styled.button`
     display: flex;

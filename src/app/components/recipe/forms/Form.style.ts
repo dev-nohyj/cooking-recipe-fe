@@ -1,5 +1,6 @@
 import { colors } from '@/asset/colors';
 import { MobileSize, TabletSize } from '@/asset/const/deviceSize';
+import Image from 'next/image';
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
@@ -79,4 +80,10 @@ export const TagInput = styled.input`
     line-height: 1;
     border: none;
     height: 32px;
+`;
+
+export const Img = styled(Image)`
+    width: 100%;
+    object-fit: none;
+    border-radius: 12px;
 `;

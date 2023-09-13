@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import ImgIcon from '../../../../../public/svg/ImgIcon';
 import {
+    Img,
     Label,
     LeftContainer,
     RightContainer,
@@ -80,7 +80,7 @@ const InputSection = ({
                     {watch('thumbnailUrl') === '' ? (
                         <ImgIcon />
                     ) : (
-                        <Image src={watch('thumbnailUrl')} width={300} height={180} alt="thumbnail-image" />
+                        <Img src={watch('thumbnailUrl')} width={300} height={180} alt="thumbnail-image" />
                     )}
                 </Label>
             </LeftContainer>
