@@ -38,10 +38,11 @@ const Main = ({}: Props) => {
                     return newData;
                 }
             });
-            router.replace(`/food/detail/${data.id}`);
+            // router.replace(`/food/detail/${data.id}`);
+            reset();
         },
     });
-    const { handleSubmit, control, setValue, watch } = useForm({
+    const { handleSubmit, control, setValue, watch, reset } = useForm({
         defaultValues: {
             description: '',
             tags: [],

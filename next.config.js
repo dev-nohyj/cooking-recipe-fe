@@ -5,6 +5,7 @@ const nextConfig = {
     env: {
         BACKEND_URL: process.env.BACKEND_URL,
         COOKIE: process.env.COOKIE,
+        CLIENT_URL: process.env.CLIENT_URL,
     },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',

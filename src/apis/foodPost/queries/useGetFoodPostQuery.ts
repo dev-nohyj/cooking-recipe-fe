@@ -10,8 +10,6 @@ export type TFoodPostData = {
         profileImageUrl: string | null;
     };
     imageUrl: string;
-    isLike: boolean;
-    likeCount: number;
     createdAt: Date;
     updatedAt: Date;
 };
