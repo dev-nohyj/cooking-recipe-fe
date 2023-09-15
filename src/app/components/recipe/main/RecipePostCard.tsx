@@ -15,16 +15,15 @@ interface Props {
 }
 
 const RecipePostCard = ({ data, onDetail, onLike, isLikeLoading }: Props) => {
-    const { id, thumbnailUrl, title, author, isLike, likeCount, createdAt } = data;
     return (
         <Card
             onClick={() => {
-                onDetail(id);
+                onDetail(data.id);
             }}
         >
             <Img
-                src={thumbnailUrl}
-                alt={`thumbnail-${id}`}
+                src={data.thumbnailUrl}
+                alt={`thumbnail-${data.id}`}
                 width={300}
                 height={180}
                 placeholder="blur"
@@ -32,27 +31,31 @@ const RecipePostCard = ({ data, onDetail, onLike, isLikeLoading }: Props) => {
             />
 
             <Content>
-                <Title>{title}</Title>
-                <Date>{convertTime(createdAt)}</Date>
+                <Title>{data.title}</Title>
+                <Date>{convertTime(data.createdAt)}</Date>
                 <BottomWrapper>
                     <UserInfo>
                         <ProfileImage
                             width={24}
                             height={24}
-                            src={author.profileImageUrl ? author.profileImageUrl : commonImages.defaultProfileSm.uri}
+                            src={
+                                data.author.profileImageUrl
+                                    ? data.author.profileImageUrl
+                                    : commonImages.defaultProfileSm.uri
+                            }
                             alt="profileImage"
                         />
-                        <span>{author.nickname}</span>
+                        <span>{data.author.nickname}</span>
                     </UserInfo>
                     <Btn
                         disabled={isLikeLoading}
                         onClick={(e) => {
                             e.stopPropagation();
-                            onLike(id, isLike);
+                            onLike(data.id, data.isLike);
                         }}
                     >
-                        <LikeIcon isLike={isLike} />
-                        <span>{likeCount}</span>
+                        <LikeIcon isLike={data.isLike} />
+                        <span>{data.likeCount}</span>
                     </Btn>
                 </BottomWrapper>
             </Content>
@@ -81,8 +84,8 @@ const Content = styled.div`
 
 const Title = styled.p`
     margin: 4px 0;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 2rem;
+    line-height: 2.4rem;
     letter-spacing: -0.05em;
     font-weight: 600;
     color: ${colors.black};
@@ -104,8 +107,8 @@ const BottomWrapper = styled.div`
 `;
 const UserInfo = styled.div`
     font-weight: 200;
-    font-size: 15px;
-    line-height: 18px;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
     letter-spacing: -0.05em;
     color: ${colors.black};
     display: flex;
