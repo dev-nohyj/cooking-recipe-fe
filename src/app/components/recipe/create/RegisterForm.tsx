@@ -14,7 +14,7 @@ import { TGetRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQu
 import { produce } from 'immer';
 import CategoryDropdown from '../forms/CategoryDropdown';
 import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
-import { Container } from '../forms/Form.style';
+import { Container } from '../forms/RecipeForm.style';
 import InputSection from '../forms/InputSection';
 import EditorComponent from '../forms/editorComponent';
 

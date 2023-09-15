@@ -9,7 +9,7 @@ import {
     TagWrapper,
     TitleInput,
     TopSection,
-} from './Form.style';
+} from './RecipeForm.style';
 import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import { nanoid } from 'nanoid';
 import { ChangeEvent, KeyboardEvent, MutableRefObject } from 'react';

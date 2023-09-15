@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
 import { produce } from 'immer';
 import SubmitSection from '../forms/SubmitSection';
-import { Container } from '../forms/Form.style';
+import { Container } from '../forms/RecipeForm.style';
 import CategoryDropdown from '../forms/CategoryDropdown';
 import InputSection from '../forms/InputSection';
 import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
