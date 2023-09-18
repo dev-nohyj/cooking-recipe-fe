@@ -1,6 +1,5 @@
 import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
-import { useModifyFoodPostMutation } from '@/apis/foodPost/mutations/useModifyFoodPostMutation';
-import { GetFoodPostDetailQueryKey, TGetFoodPostDetailData } from '@/apis/foodPost/queries/useGetFoodPostDetailQuery';
+import { useCreateFoodPostMutation } from '@/apis/foodPost/mutations/useCreateFoodPostMutation';
 import { GetFoodPostQueryKey, TGetFoodPostData } from '@/apis/foodPost/queries/useGetFoodPostQuery';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
 import { FoodPostSchema } from '@/app/utils/schema/foodPostSchema';
@@ -11,21 +10,19 @@ import { produce } from 'immer';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { Container } from '../forms/FoodForm.style';
-import DescSection from '../forms/DescSection';
 import ImageSection from '../forms/ImageSection';
-import TagSection from '../forms/TagSection';
 import SubmitSection from '../../recipe/forms/SubmitSection';
+import DescSection from '../forms/DescSection';
+import TagSection from '../forms/TagSection';
+import { Container } from '../forms/FoodForm.style';
 
-interface Props {
-    foodPostData: TGetFoodPostDetailData;
-}
+interface Props {}
 
-const ModifyForm = ({ foodPostData }: Props) => {
+const RegisterForm = ({}: Props) => {
     const cache = useQueryClient();
     const router = useRouter();
 
-    const { mutate: modifyPost, isLoading: isModifyLoading } = useModifyFoodPostMutation({
+    const { mutate: createPost, isLoading: isCreateLoading } = useCreateFoodPostMutation({
         onError: (err) => {
             alert(err.response?.data.message ?? '에러가 발생했습니다.');
         },
@@ -33,26 +30,7 @@ const ModifyForm = ({ foodPostData }: Props) => {
             cache.setQueryData<InfiniteData<TGetFoodPostData>>(GetFoodPostQueryKey(), (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {
-                        draft.pages.forEach((list) => {
-                            list.foodPostList.forEach((foodPost) => {
-                                if (foodPost.id === data.id) {
-                                    foodPost.description = data.description;
-                                    foodPost.imageUrl = data.foodImages[0].url;
-                                    foodPost.updatedAt = data.updatedAt;
-                                }
-                            });
-                        });
-                    });
-                    return newData;
-                }
-            });
-            cache.setQueryData<TGetFoodPostDetailData>(GetFoodPostDetailQueryKey({ foodPostId: data.id }), (prev) => {
-                if (prev) {
-                    const newData = produce(prev, (draft) => {
-                        draft.description = data.description;
-                        draft.foodImages = data.foodImages;
-                        draft.tags = data.tags;
-                        draft.updatedAt = data.updatedAt;
+                        draft.pages[0].foodPostList = [data, ...draft.pages[0].foodPostList];
                     });
                     return newData;
                 }
@@ -60,16 +38,14 @@ const ModifyForm = ({ foodPostData }: Props) => {
             router.replace(`/food/detail/${data.id}`);
         },
     });
-
     const { handleSubmit, control, setValue, watch } = useForm({
         defaultValues: {
-            description: foodPostData.description ?? '',
-            tags: foodPostData.tags.map((v) => v.title),
-            foodImages: foodPostData.foodImages,
+            description: '',
+            tags: [],
+            foodImages: [],
         },
         resolver: yupResolver(FoodPostSchema),
     });
-
     const setTags = useCallback((tags: string[]) => {
         setValue('tags', tags);
     }, []);
@@ -79,18 +55,16 @@ const ModifyForm = ({ foodPostData }: Props) => {
         setTags,
         20,
     );
-
     const onSubmit = handleSubmit(
         (data) => {
             const { description, tags, foodImages } = data;
 
             const variables = {
-                foodPostId: foodPostData.id,
                 description: !description || description.trim().length === 0 ? null : data.description!,
                 tags: tags.length === 0 ? null : tags,
                 foodImages,
             };
-            modifyPost(variables);
+            createPost(variables);
         },
         (err) => {
             if (err.foodImages) {
@@ -98,6 +72,7 @@ const ModifyForm = ({ foodPostData }: Props) => {
             }
         },
     );
+
     const onCancel = useCallback(() => {
         router.back();
     }, []);
@@ -139,7 +114,6 @@ const ModifyForm = ({ foodPostData }: Props) => {
         },
         [watch('foodImages')],
     );
-
     const imageProps = {
         onUploadImg,
         isLoading,
@@ -157,9 +131,9 @@ const ModifyForm = ({ foodPostData }: Props) => {
     const submitProps = {
         onSubmit,
         onCancel,
-        isLoading: isModifyLoading,
-        isModify: true,
+        isLoading: isCreateLoading,
     };
+
     return (
         <Container>
             <DescSection control={control} />
@@ -170,4 +144,4 @@ const ModifyForm = ({ foodPostData }: Props) => {
     );
 };
 
-export default ModifyForm;
+export default RegisterForm;
