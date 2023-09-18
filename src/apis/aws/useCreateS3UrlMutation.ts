@@ -6,6 +6,7 @@ import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
 export type TCreateS3UrlVariables = {
     urlType: PresignedUrlTypeLabel;
     file: File;
+    idx?: number;
 };
 
 export type TCreateS3UrlData = {

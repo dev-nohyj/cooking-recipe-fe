@@ -9,6 +9,7 @@ export type TGetFoodPostDetailData = {
         id: string;
         nickname: string;
         profileImageUrl: string | null;
+        introduction: string | null;
     };
     foodImages: { id: number; url: string }[];
     isLike: boolean;

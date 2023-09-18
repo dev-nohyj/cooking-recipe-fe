@@ -16,6 +16,7 @@ export type TModifyFoodPostData = {
         id: string;
         nickname: string;
         profileImageUrl: string | null;
+        introduction: string | null;
     };
     foodImages: { id: number; url: string }[];
     isLike: boolean;
