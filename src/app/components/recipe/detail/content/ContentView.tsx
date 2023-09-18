@@ -112,7 +112,7 @@ const ContentView = ({
                     />
                     <AuthorProfile>
                         <Nickname>{author.nickname}</Nickname>
-                        {author.introduction && <Intro>introcution</Intro>}
+                        {author.introduction && <Intro>{author.introduction}</Intro>}
                     </AuthorProfile>
                 </ProfileContainer>
             </Container>
@@ -306,7 +306,6 @@ const Wrapper = styled.div`
 
 const Btn = styled.button`
     display: flex;
-    align-items: center;
     & span {
         font-size: 1.5rem;
         font-weight: 200;

@@ -122,7 +122,6 @@ const ProfileImage = styled(Image)`
 `;
 const Btn = styled.button`
     display: flex;
-    align-items: center;
 
     & span {
         font-size: 1.5rem;

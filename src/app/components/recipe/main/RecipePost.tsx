@@ -113,6 +113,7 @@ const RecipePost = ({ category }: Props) => {
         onLike,
         isLoading,
         isLikeLoading,
+        isLogin: !!user?.profile,
     };
 
     return <RecipeList {...props} />;

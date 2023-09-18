@@ -2,6 +2,7 @@ import { TFoodPostData, useGetFoodPostQuery } from '@/apis/foodPost/queries/useG
 import { useCallback, useEffect, useMemo } from 'react';
 import FoodList from './FoodList';
 import { useRouter } from 'next/navigation';
+import { useGetProfileQuery } from '@/apis/auth/queries/useGetProfileQuery';
 
 interface Props {}
 
@@ -15,6 +16,7 @@ const FoodPost = ({}: Props) => {
     const { data, fetchNextPage, isLoading, error } = useGetFoodPostQuery({
         keepPreviousData: true,
     });
+    const { data: user } = useGetProfileQuery();
 
     useEffect(() => {
         if (error) {
@@ -37,6 +39,7 @@ const FoodPost = ({}: Props) => {
         onCreate,
         fetchNextPage,
         hasMore,
+        isLogin: !!user?.profile,
     };
 
     return <FoodList {...props} />;

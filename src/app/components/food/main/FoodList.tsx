@@ -15,9 +15,10 @@ interface Props {
     onCreate: () => void;
     fetchNextPage: () => void;
     hasMore: boolean;
+    isLogin: boolean;
 }
 
-const FoodList = ({ isLoading, foodPostList, onCreate, fetchNextPage, hasMore }: Props) => {
+const FoodList = ({ isLoading, foodPostList, onCreate, fetchNextPage, hasMore, isLogin }: Props) => {
     if (isLoading) return <></>;
     if (foodPostList.length === 0) {
         return (
@@ -31,9 +32,12 @@ const FoodList = ({ isLoading, foodPostList, onCreate, fetchNextPage, hasMore }:
 
     return (
         <Container>
-            <FloatingButton onClick={onCreate}>
-                <WriteIcon />
-            </FloatingButton>
+            {isLogin && (
+                <FloatingButton onClick={onCreate}>
+                    <WriteIcon />
+                </FloatingButton>
+            )}
+
             <InfiniteScroll dataLength={foodPostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
                 <MasonryInfiniteGrid align="center" gap={15}>
                     {foodPostList.map((foodPost) => {

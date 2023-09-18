@@ -16,6 +16,7 @@ interface Props {
     onLike: (recipePostId: number, likeType: boolean) => void;
     isLoading: boolean;
     isLikeLoading: boolean;
+    isLogin: boolean;
 }
 
 const RecipeList = ({
@@ -27,6 +28,7 @@ const RecipeList = ({
     onLike,
     isLoading,
     isLikeLoading,
+    isLogin,
 }: Props) => {
     if (isLoading) return <LoadingRecipePostList />;
     if (recipePostList.length === 0)
@@ -55,9 +57,11 @@ const RecipeList = ({
                     })}
                 </Container>
             </InfiniteScroll>
-            <FloatingButton onClick={onCreate}>
-                <WriteIcon />
-            </FloatingButton>
+            {isLogin && (
+                <FloatingButton onClick={onCreate}>
+                    <WriteIcon />
+                </FloatingButton>
+            )}
         </>
     );
 };
