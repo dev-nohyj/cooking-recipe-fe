@@ -3,7 +3,7 @@ import getQueryClient from '@/config/reactQuery/getQueryClient';
 import HydrateOnClient from '@/config/reactQuery/hydrate.client';
 import { dehydrate } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
-import FoodPost from './FoodPost';
+import FoodPost from './foodPost';
 
 interface Props {
     foodPostId: number;
