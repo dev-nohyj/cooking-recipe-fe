@@ -14,6 +14,7 @@
     "@tanstack/react-query": "^4.32.6",
     "@tanstack/react-query-devtools": "^4.32.6",
     "axios": "^1.4.0",
+    "eventsource-parser": "^1.0.0",
     "framer-motion": "^10.16.4",
     "immer": "^10.0.2",
     "moment-timezone": "^0.5.43",

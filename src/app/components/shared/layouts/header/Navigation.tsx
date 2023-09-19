@@ -64,7 +64,7 @@ const Navigation = ({}: Props) => {
         return [
             { title: 'Recipe', href: '/recipe', isActive: pathname.startsWith('/recipe') },
             { title: 'Food', href: '/food', isActive: pathname.startsWith('/food') },
-            { title: 'Ai', href: '/recipe', isActive: pathname.startsWith('/ai') },
+            { title: 'Ai', href: '/ai/recipeAiInfo', isActive: pathname.startsWith('/ai') },
         ];
     }, [pathname]);
 

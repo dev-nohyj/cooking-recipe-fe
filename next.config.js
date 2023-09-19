@@ -6,6 +6,7 @@ const nextConfig = {
         BACKEND_URL: process.env.BACKEND_URL,
         COOKIE: process.env.COOKIE,
         CLIENT_URL: process.env.CLIENT_URL,
+        OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
