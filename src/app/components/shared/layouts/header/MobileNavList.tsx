@@ -96,7 +96,7 @@ const LinkTo = styled(Link)`
     color: ${colors.black100};
     font-size: 1.6rem;
     line-height: 2.4rem;
-    font-weight: 500;
+    font-weight: 700;
     padding: 12px 16px;
     width: 100%;
     text-align: start;
@@ -113,7 +113,7 @@ const Logout = styled.button`
     color: ${colors.black100};
     font-size: 1.6rem;
     line-height: 2.4rem;
-    font-weight: 500;
+    font-weight: 700;
     padding: 12px 16px;
     width: 100%;
     text-align: start;

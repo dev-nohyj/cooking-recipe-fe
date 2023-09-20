@@ -15,6 +15,8 @@ import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
 import { useLogoutMutation } from '@/apis/auth/mutations/useLogoutMutation';
 import { produce } from 'immer';
 import LoginModal from './LoginModal';
+import Image from 'next/image';
+import { commonImages } from '../../../../../../public/images';
 
 interface Props {}
 
@@ -62,9 +64,9 @@ const Navigation = ({}: Props) => {
 
     const navList = useMemo(() => {
         return [
-            { title: 'Recipe', href: '/recipe', isActive: pathname.startsWith('/recipe') },
-            { title: 'Food', href: '/food', isActive: pathname.startsWith('/food') },
-            { title: 'Ai', href: '/ai/recipeAiInfo', isActive: pathname.startsWith('/ai') },
+            { title: '🥣 레시피', href: '/recipe', isActive: pathname.startsWith('/recipe') },
+            { title: '🍖 음식', href: '/food', isActive: pathname.startsWith('/food') },
+            { title: '🤖 레시피 봇', href: '/ai/recipeAiInfo', isActive: pathname.startsWith('/ai') },
         ];
     }, [pathname]);
 
@@ -102,7 +104,9 @@ const Navigation = ({}: Props) => {
     return (
         <Container>
             <Nav>
-                <Logo href={'/'}>LOGO</Logo>
+                <Logo href={'/'}>
+                    <Img src={commonImages.logoImg.uri} alt="logo" width={0} height={0} sizes="100vw" />
+                </Logo>
                 <NavList {...props} />
                 <MobileNavList {...mobileProps} />
             </Nav>
@@ -134,11 +138,14 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled(Link)`
-    display: flex;
-    align-items: center;
-    font-size: 2.4rem;
-    color: ${colors.sandyBrown};
+    max-width: 118px;
+    width: 100%;
     margin-right: 10px;
+`;
+const Img = styled(Image)`
+    max-width: 118px;
+    width: 100%;
+    height: auto;
 `;
 
 export default Navigation;

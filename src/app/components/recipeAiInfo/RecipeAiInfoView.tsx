@@ -26,7 +26,7 @@ const RecipeAiInfoView = ({ control, onEnter, isStreamLoading, onSubmit, result,
         <Container>
             <TextWrapper>
                 <Title>
-                    만들고 싶은 <span>음식의 레시피</span>를 AI에게 물어보세요!
+                    만들고 싶은 <span>음식의 레시피</span>를{'\n'}AI에게 물어보세요!
                 </Title>
             </TextWrapper>
             <InputSection>
@@ -78,6 +78,8 @@ const TextWrapper = styled.section`
     margin: 32px 0;
 `;
 const Title = styled.h2`
+    white-space: pre-line;
+    word-wrap: break-word;
     font-size: 2.4rem;
     line-height: 3.2rem;
     color: ${colors.black200};
