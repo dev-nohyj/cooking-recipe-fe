@@ -1,4 +1,3 @@
-import { useDeleteCommentMutation } from '@/apis/recipePost/mutations/useDeleteCommentMutation';
 import {
     GetCommentQueryKey,
     TGetCommentData,
@@ -9,7 +8,6 @@ import { useSwitchState } from '@/app/hooks/useSwitchState';
 import { useModifyCommentMutation } from '@/apis/recipePost/mutations/useModifyCommentMutation';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
-import CommentItemView from '../../comment/commentItem/CommentItemView';
 import { TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 import ReplyCommentItemView from './ReplyCommentItemView';
 

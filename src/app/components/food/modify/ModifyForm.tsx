@@ -16,6 +16,10 @@ import DescSection from '../forms/DescSection';
 import ImageSection from '../forms/ImageSection';
 import TagSection from '../forms/TagSection';
 import SubmitSection from '../../recipe/forms/SubmitSection';
+import {
+    GetPopularFoodPostQueryKey,
+    TGetPopularFoodPostData,
+} from '@/apis/foodPost/queries/useGetPopularFoodPostQuery';
 
 interface Props {
     foodPostData: TGetFoodPostDetailData;
@@ -53,6 +57,20 @@ const ModifyForm = ({ foodPostData }: Props) => {
                         draft.foodImages = data.foodImages;
                         draft.tags = data.tags;
                         draft.updatedAt = data.updatedAt;
+                    });
+                    return newData;
+                }
+            });
+            cache.setQueryData<TGetPopularFoodPostData>(GetPopularFoodPostQueryKey(), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.foodPostList.forEach((item) => {
+                            if (item.id === data.id) {
+                                item.description = data.description;
+                                item.imageUrl = data.foodImages[0].url;
+                                item.updatedAt = data.updatedAt;
+                            }
+                        });
                     });
                     return newData;
                 }

@@ -15,6 +15,10 @@ import { produce } from 'immer';
 import { useCallback, useEffect, useMemo } from 'react';
 import FoodPostView from './FoodPostView';
 import { useRouter } from 'next/navigation';
+import {
+    GetPopularFoodPostQueryKey,
+    TGetPopularFoodPostData,
+} from '@/apis/foodPost/queries/useGetPopularFoodPostQuery';
 
 interface Props {
     foodPostId: number;
@@ -45,6 +49,16 @@ const FoodPost = ({ foodPostId }: Props) => {
                             list.foodPostList = list.foodPostList.filter((item) => {
                                 return item.id !== data.foodPostId;
                             });
+                        });
+                    });
+                    return newData;
+                }
+            });
+            cache.setQueryData<TGetPopularFoodPostData>(GetPopularFoodPostQueryKey(), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.foodPostList.filter((item) => {
+                            return item.id !== data.foodPostId;
                         });
                     });
                     return newData;

@@ -20,6 +20,7 @@ const ProfileImage = ({ profileImageUrl }: Props) => {
             alert('프로필 이미지 수정에 실패했습니다.');
         },
         onSuccess: (data) => {
+            cache.removeQueries({ type: 'inactive' });
             cache.setQueryData<TGetProfileData>(GetProfileQueryKey(), (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {

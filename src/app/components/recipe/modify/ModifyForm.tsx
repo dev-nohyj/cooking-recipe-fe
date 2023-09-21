@@ -17,6 +17,10 @@ import CategoryDropdown from '../forms/CategoryDropdown';
 import InputSection from '../forms/InputSection';
 import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
 import EditorComponent from '../forms/editorComponent';
+import {
+    GetPopularRecipePostQueryKey,
+    TGetPopularRecipePostData,
+} from '@/apis/recipePost/queries/useGetPopularRecipePostQuery';
 
 interface Props {
     recipePostData: TRecipePostDetailData;
@@ -116,7 +120,20 @@ const ModifyForm = ({ recipePostData }: Props) => {
                     return newData;
                 }
             });
-
+            cache.setQueryData<TGetPopularRecipePostData>(GetPopularRecipePostQueryKey(), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.recipePostList.forEach((item) => {
+                            if (item.id === data.id) {
+                                item.title = data.title;
+                                item.thumbnailUrl = data.thumbnailUrl;
+                                item.updatedAt = data.updatedAt;
+                            }
+                        });
+                    });
+                    return newData;
+                }
+            });
             router.replace(`/recipe/detail/${data.id}`);
         },
         onError: () => {

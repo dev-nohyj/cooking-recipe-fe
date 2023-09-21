@@ -121,6 +121,16 @@ const Content = ({ data, recipePostId, isAuthor, isLogin }: Props) => {
                     return newData;
                 }
             });
+            cache.setQueryData<TGetPopularRecipePostData>(GetPopularRecipePostQueryKey(), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.recipePostList.filter((item) => {
+                            return item.id !== data.recipePostId;
+                        });
+                    });
+                    return newData;
+                }
+            });
         },
     });
 

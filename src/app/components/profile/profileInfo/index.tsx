@@ -39,6 +39,7 @@ const ProfileInfo = ({ nickname, introduction }: Props) => {
         },
         onSuccess: (data) => {
             onChangeModify(false);
+            cache.removeQueries({ type: 'inactive' });
             cache.setQueryData<TGetProfileData>(GetProfileQueryKey(), (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {

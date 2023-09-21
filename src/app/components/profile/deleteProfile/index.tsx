@@ -22,6 +22,7 @@ const DeleteProfile = ({}: Props) => {
         },
         onSuccess: () => {
             onChangeVisibleModal(false);
+            cache.removeQueries();
             cache.setQueryData<TGetProfileData>(GetProfileQueryKey(), (prev) => {
                 if (prev) {
                     const newData = produce(prev, (draft) => {
@@ -32,6 +33,7 @@ const DeleteProfile = ({}: Props) => {
                 return prev;
             });
             router.replace('/');
+            router.refresh();
         },
     });
     const onDelete = useCallback(() => {

@@ -1,4 +1,3 @@
-import { useDeleteCommentMutation } from '@/apis/recipePost/mutations/useDeleteCommentMutation';
 import {
     GetCommentQueryKey,
     TGetCommentData,
