@@ -10,6 +10,10 @@ import moment from 'moment-timezone';
 import ContentView from './ContentView';
 import { useLikeRecipePostMutation } from '@/apis/recipePost/mutations/useLikeRecipePostMutation';
 import { LikeTypeLabel } from '@/asset/labels/recipePostLabel';
+import {
+    GetPopularRecipePostQueryKey,
+    TGetPopularRecipePostData,
+} from '@/apis/recipePost/queries/useGetPopularRecipePostQuery';
 
 interface Props {
     data: TRecipePostDetailData;
@@ -66,6 +70,24 @@ const Content = ({ data, recipePostId, isAuthor, isLogin }: Props) => {
                     }
                 },
             );
+            cache.setQueryData<TGetPopularRecipePostData>(GetPopularRecipePostQueryKey(), (prev) => {
+                if (prev) {
+                    const newData = produce(prev, (draft) => {
+                        draft.recipePostList.forEach((item) => {
+                            if (item.id === variables.recipePostId) {
+                                if (variables.likeType === LikeTypeLabel.like) {
+                                    item.isLike = true;
+                                    item.likeCount = item.likeCount + 1;
+                                } else {
+                                    item.isLike = false;
+                                    item.likeCount = item.likeCount - 1;
+                                }
+                            }
+                        });
+                    });
+                    return newData;
+                }
+            });
         },
     });
 
