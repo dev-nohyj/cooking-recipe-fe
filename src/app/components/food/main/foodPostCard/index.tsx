@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 
 interface Props {
     data: TFoodPostData;
+    isImgSize?: boolean;
 }
 
-const FoodPostCard = ({ data }: Props) => {
+const FoodPostCard = ({ data, isImgSize }: Props) => {
     const router = useRouter();
 
     const onDetail = useCallback((id: number) => {
@@ -23,6 +24,7 @@ const FoodPostCard = ({ data }: Props) => {
         targetVisibleId,
         onMouseEnter,
         onMouseLeave,
+        isImgSize,
     };
     return <FoodPostCardView {...props} />;
 };

@@ -15,9 +15,17 @@ interface Props {
     targetVisibleId: number | null;
     onMouseEnter: (id: number) => void;
     onMouseLeave: () => void;
+    isImgSize?: boolean;
 }
 
-const FoodPostCardView = ({ onDetail, data, targetVisibleId, onMouseEnter, onMouseLeave }: Props) => {
+const FoodPostCardView = ({
+    onDetail,
+    data,
+    targetVisibleId,
+    onMouseEnter,
+    onMouseLeave,
+    isImgSize = false,
+}: Props) => {
     const onCopy = useCallback(() => {
         return toast('URL이 복사되었습니다.', {
             position: 'top-center',
@@ -48,6 +56,7 @@ const FoodPostCardView = ({ onDetail, data, targetVisibleId, onMouseEnter, onMou
                 sizes="100vw"
                 placeholder="blur"
                 blurDataURL={blurDataURL}
+                isImgSize={isImgSize}
             />
             {targetVisibleId === data.id && (
                 <InfoContainer>
@@ -84,9 +93,14 @@ const Card = styled.div`
     position: relative;
     cursor: pointer;
 `;
-const Img = styled(Image)`
+const Img = styled(Image)<{ isImgSize: boolean }>`
     width: 300px;
     height: auto;
+    ${(props) =>
+        props.isImgSize && {
+            aspectRatio: 1.8,
+            objectFit: 'cover',
+        }}
 `;
 const InfoContainer = styled.div`
     padding: 12px;
