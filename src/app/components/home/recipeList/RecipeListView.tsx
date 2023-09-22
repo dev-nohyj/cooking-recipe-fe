@@ -2,8 +2,8 @@ import { colors } from '@/asset/colors';
 import { TextButton } from '../../shared/button/TextButton';
 import { CardList, Container } from '../Home.style';
 import { TGetPopularRecipePostData } from '@/apis/recipePost/queries/useGetPopularRecipePostQuery';
-import RecipePostCard from '../../recipe/main/RecipePostCard';
 import Loading from './Loading';
+import RecipePostCard from '../../recipe/main/recipePostCard';
 
 interface Props {
     onRouteRecipe: () => void;

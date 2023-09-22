@@ -3,6 +3,12 @@ import { MobileSize } from '@/asset/const/deviceSize';
 import Image from 'next/image';
 import { styled } from 'styled-components';
 
+export const HomeContainer = styled.div`
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 32px 32px;
+`;
+
 export const Title = styled.h2`
     white-space: pre-line;
     word-wrap: break-word;
@@ -21,6 +27,7 @@ export const Title = styled.h2`
         margin: 16px 0;
     }
 `;
+
 export const Img = styled(Image)`
     width: 100%;
     height: auto;
@@ -28,6 +35,7 @@ export const Img = styled(Image)`
         display: none;
     }
 `;
+
 export const MobileImg = styled(Image)`
     display: none;
     width: 100%;
