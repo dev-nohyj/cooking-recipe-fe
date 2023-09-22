@@ -1,19 +1,17 @@
 import { TFoodPostData } from '@/apis/foodPost/queries/useGetFoodPostQuery';
-import { colors } from '@/asset/colors';
 import { blurDataURL } from '@/asset/const/blurUrl';
-import Image from 'next/image';
-import { styled } from 'styled-components';
 import { commonImages } from '../../../../../../public/images';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ClipboardIcon from '../../../../../../public/svg/ClipboardIcon';
 import { useCallback } from 'react';
 import { toast } from 'react-toastify';
+import { Btn, Card, Desc, Img, InfoContainer, ProfileImage, UserInfo } from '../FoodMain.style';
 
 interface Props {
-    onDetail: (id: number) => void;
+    onDetail: () => void;
     data: TFoodPostData;
     targetVisibleId: number | null;
-    onMouseEnter: (id: number) => void;
+    onMouseEnter: () => void;
     onMouseLeave: () => void;
     isImgSize?: boolean;
 }
@@ -39,15 +37,7 @@ const FoodPostCardView = ({
         });
     }, []);
     return (
-        <Card
-            onClick={() => {
-                onDetail(data.id);
-            }}
-            onMouseEnter={() => {
-                onMouseEnter(data.id);
-            }}
-            onMouseLeave={onMouseLeave}
-        >
+        <Card onClick={onDetail} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             <Img
                 alt="img"
                 src={data.imageUrl}
@@ -88,70 +78,5 @@ const FoodPostCardView = ({
         </Card>
     );
 };
-
-const Card = styled.div`
-    position: relative;
-    cursor: pointer;
-`;
-const Img = styled(Image)<{ isImgSize: boolean }>`
-    width: 300px;
-    height: auto;
-    ${(props) =>
-        props.isImgSize && {
-            aspectRatio: 1.8,
-            objectFit: 'cover',
-        }}
-`;
-const InfoContainer = styled.div`
-    padding: 12px;
-    background-color: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    top: 0;
-`;
-
-const Desc = styled.p`
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: -0.05em;
-    font-weight: 600;
-    color: ${colors.white};
-    overflow: hidden;
-    text-overflow: ellipsis;
-`;
-
-const UserInfo = styled.div`
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    font-weight: 200;
-    font-size: 1.2rem;
-    line-height: 1.6rem;
-    letter-spacing: -0.05em;
-    color: ${colors.white};
-    display: flex;
-    align-items: center;
-    & span {
-        margin-left: 5px;
-        width: 150px;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-    }
-`;
-const ProfileImage = styled(Image)`
-    border-radius: 50%;
-`;
-const Btn = styled.button`
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    padding: 8px;
-`;
 
 export default FoodPostCardView;

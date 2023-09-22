@@ -1,5 +1,5 @@
-import Main from '@/app/components/food/create/Main';
-import HydratedModifyFoodPost from '@/app/components/food/modify/HydratedModifyFoodPost';
+import CreateMain from '@/app/components/food/create';
+import ModifyMain from '@/app/components/food/modify/HydratedModifyFoodPost';
 
 interface Props {
     searchParams: { foodPostId: string };
@@ -7,9 +7,9 @@ interface Props {
 
 const FoodWritePage = ({ searchParams: { foodPostId } }: Props) => {
     if (foodPostId) {
-        return <HydratedModifyFoodPost foodPostId={parseInt(foodPostId)} />;
+        return <ModifyMain foodPostId={parseInt(foodPostId)} />;
     }
-    return <Main />;
+    return <CreateMain />;
 };
 
 export default FoodWritePage;

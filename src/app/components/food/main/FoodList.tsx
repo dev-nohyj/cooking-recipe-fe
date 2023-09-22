@@ -1,4 +1,3 @@
-import { styled } from 'styled-components';
 import { FloatingButton } from '../../shared/button/FloatingButton';
 import WriteIcon from '../../../../../public/svg/WriteIcon';
 import EmptyList from '../../shared/layouts/EmptyList';
@@ -8,6 +7,7 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import FoodPostCard from './foodPostCard';
 import { MasonryInfiniteGrid } from '@egjs/react-infinitegrid';
+import { Container } from './FoodMain.style';
 
 interface Props {
     isLoading: boolean;
@@ -48,11 +48,5 @@ const FoodList = ({ isLoading, foodPostList, onCreate, fetchNextPage, hasMore, i
         </Container>
     );
 };
-
-const Container = styled.section`
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 32px 0 3%;
-`;
 
 export default FoodList;

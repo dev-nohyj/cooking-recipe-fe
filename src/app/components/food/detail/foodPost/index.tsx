@@ -12,7 +12,7 @@ import { useSwitchState } from '@/app/hooks/useSwitchState';
 import { LikeTypeLabel } from '@/asset/labels/recipePostLabel';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import FoodPostView from './FoodPostView';
 import { useRouter } from 'next/navigation';
 import {
@@ -30,6 +30,7 @@ const FoodPost = ({ foodPostId }: Props) => {
     const [isVisibleModal, onChangeVisibleModal] = useSwitchState();
     const { data: user } = useGetProfileQuery();
     const { data, error } = useGetFoodPostDetailQuery({ foodPostId });
+    const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     useEffect(() => {
         if (error) {
             alert(error.response?.data.message ?? '에러가 발생했습니다.');
@@ -127,6 +128,8 @@ const FoodPost = ({ foodPostId }: Props) => {
         onLike,
         isVisibleModal,
         onDelete,
+        thumbsSwiper,
+        setThumbsSwiper,
     };
     return <FoodPostView {...props} />;
 };

@@ -1,4 +1,4 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
@@ -6,22 +6,20 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/navigation';
 
 import { FreeMode, Thumbs, Scrollbar, Navigation } from 'swiper/modules';
-import { styled } from 'styled-components';
-import Image from 'next/image';
 import { blurDataURL } from '@/asset/const/blurUrl';
-import { useState } from 'react';
-import { colors } from '@/asset/colors';
+import { Dispatch } from 'react';
+import { Img, MainSwiper, ThumbImg, ThumbSwiper, ThumbWrapper } from './FoodDetail.style';
 
 interface Props {
     foodImages: {
         id: number;
         url: string;
     }[];
+    thumbsSwiper: any;
+    setThumbsSwiper: Dispatch<any>;
 }
 
-const ImageSlide = ({ foodImages }: Props) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null);
-
+const ImageSlide = ({ foodImages, thumbsSwiper, setThumbsSwiper }: Props) => {
     return (
         <section>
             <MainSwiper
@@ -89,40 +87,5 @@ const ImageSlide = ({ foodImages }: Props) => {
         </section>
     );
 };
-
-const MainSwiper = styled(Swiper)`
-    padding: 32px 0;
-    cursor: pointer;
-    .swiper-button-prev,
-    .swiper-button-next {
-        color: ${colors.sandyBrown};
-    }
-`;
-
-const Img = styled(Image)`
-    width: 100%;
-    max-height: 500px;
-    height: auto;
-    object-fit: contain;
-`;
-
-const ThumbSwiper = styled(Swiper)`
-    margin-top: 32px;
-    cursor: pointer;
-    .swiper-slide-thumb-active img {
-        opacity: 1;
-    }
-`;
-
-const ThumbWrapper = styled(SwiperSlide)`
-    width: 0;
-    aspect-ratio: 1;
-`;
-const ThumbImg = styled(Image)`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.3;
-`;
 
 export default ImageSlide;

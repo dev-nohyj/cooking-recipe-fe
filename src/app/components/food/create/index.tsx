@@ -1,3 +1,4 @@
+'use client';
 import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
 import { useCreateFoodPostMutation } from '@/apis/foodPost/mutations/useCreateFoodPostMutation';
 import { GetFoodPostQueryKey, TGetFoodPostData } from '@/apis/foodPost/queries/useGetFoodPostQuery';
@@ -18,7 +19,7 @@ import { Container } from '../forms/FoodForm.style';
 
 interface Props {}
 
-const RegisterForm = ({}: Props) => {
+const Main = ({}: Props) => {
     const cache = useQueryClient();
     const router = useRouter();
 
@@ -144,4 +145,4 @@ const RegisterForm = ({}: Props) => {
     );
 };
 
-export default RegisterForm;
+export default Main;

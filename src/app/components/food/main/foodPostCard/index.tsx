@@ -19,10 +19,14 @@ const FoodPostCard = ({ data, isImgSize }: Props) => {
     const [targetVisibleId, onMouseEnter, onMouseLeave] = useHoverGetId();
 
     const props = {
-        onDetail,
+        onDetail: () => {
+            onDetail(data.id);
+        },
         data,
         targetVisibleId,
-        onMouseEnter,
+        onMouseEnter: () => {
+            onMouseEnter(data.id);
+        },
         onMouseLeave,
         isImgSize,
     };

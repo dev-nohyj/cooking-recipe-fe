@@ -1,15 +1,15 @@
-import { GetFoodPostDetailQueryFn, GetFoodPostDetailQueryKey } from '@/apis/foodPost/queries/useGetFoodPostDetailQuery';
-import getQueryClient from '@/config/reactQuery/getQueryClient';
-import HydrateOnClient from '@/config/reactQuery/hydrate.client';
-import { dehydrate } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
+import getQueryClient from '@/config/reactQuery/getQueryClient';
+import { GetFoodPostDetailQueryFn, GetFoodPostDetailQueryKey } from '@/apis/foodPost/queries/useGetFoodPostDetailQuery';
+import { dehydrate } from '@tanstack/react-query';
+import HydrateOnClient from '@/config/reactQuery/hydrate.client';
 import FoodPost from './foodPost';
 
 interface Props {
     foodPostId: number;
 }
 
-const HydratedFoodPost = async ({ foodPostId }: Props) => {
+const Main = async ({ foodPostId }: Props) => {
     const cookie = cookies().toString();
     const queryClient = getQueryClient();
 
@@ -25,4 +25,4 @@ const HydratedFoodPost = async ({ foodPostId }: Props) => {
     );
 };
 
-export default HydratedFoodPost;
+export default Main;

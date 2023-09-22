@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import Main from './Main';
+import Main from '.';
 import { cookies } from 'next/headers';
 import getQueryClient from '@/config/reactQuery/getQueryClient';
 import { GetFoodPostDetailQueryFn, GetFoodPostDetailQueryKey } from '@/apis/foodPost/queries/useGetFoodPostDetailQuery';

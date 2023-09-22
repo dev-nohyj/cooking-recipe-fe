@@ -1,15 +1,26 @@
 import { colors } from '@/asset/colors';
-import { MobileSize } from '@/asset/const/deviceSize';
-import Image from 'next/image';
-import { styled } from 'styled-components';
 import { TextButton } from '../../../shared/button/TextButton';
 import LikeIcon from '../../../../../../public/svg/LikeIcon';
 import ImageSlide from '../ImageSlide';
-import { TagItem, TagWrapper } from '../../forms/FoodForm.style';
 import CheckConfirmModal from '../../../shared/modal/CheckConfirmModal';
 import { nanoid } from 'nanoid';
 import { commonImages } from '../../../../../../public/images';
 import { TGetFoodPostDetailData } from '@/apis/foodPost/queries/useGetFoodPostDetailQuery';
+import { Dispatch } from 'react';
+import {
+    AuthorProfile,
+    Btn,
+    ButtonWrapper,
+    Container,
+    Desc,
+    HorizontalGap,
+    Intro,
+    LikeWrapper,
+    Nickname,
+    ProfileContainer,
+    ProfileImg,
+    TagWrapper,
+} from '../FoodDetail.style';
 
 interface Props {
     data: TGetFoodPostDetailData;
@@ -21,6 +32,8 @@ interface Props {
     onLike: (foodPostId: number, likeType: boolean) => void;
     isVisibleModal: boolean;
     onDelete: () => void;
+    thumbsSwiper: any;
+    setThumbsSwiper: Dispatch<any>;
 }
 
 const FoodPostView = ({
@@ -33,6 +46,8 @@ const FoodPostView = ({
     onLike,
     isVisibleModal,
     onDelete,
+    thumbsSwiper,
+    setThumbsSwiper,
 }: Props) => {
     return (
         <>
@@ -64,10 +79,14 @@ const FoodPostView = ({
                         <span>{data.likeCount}</span>
                     </Btn>
                 </LikeWrapper>
-                <ImageSlide foodImages={data.foodImages} />
+                <ImageSlide
+                    foodImages={data.foodImages}
+                    thumbsSwiper={thumbsSwiper}
+                    setThumbsSwiper={setThumbsSwiper}
+                />
                 {data.description && <Desc>{data.description}</Desc>}
                 <ProfileContainer>
-                    <Img
+                    <ProfileImg
                         src={
                             data.author.profileImageUrl ? data.author.profileImageUrl : commonImages.defaultProfile.uri
                         }
@@ -86,7 +105,7 @@ const FoodPostView = ({
 
                         <TagWrapper>
                             {data.tags.map((v) => {
-                                return <TagItem key={`tag-${nanoid(6)}`}>{v.title}</TagItem>;
+                                return <p key={`tag-${nanoid(6)}`}>{v.title}</p>;
                             })}
                         </TagWrapper>
                     </>
@@ -104,78 +123,5 @@ const FoodPostView = ({
         </>
     );
 };
-
-const Container = styled.article`
-    max-width: 1024px;
-    margin: 0 auto;
-    padding: 32px 16px;
-`;
-const ButtonWrapper = styled.section`
-    display: flex;
-    align-items: center;
-`;
-const HorizontalGap = styled.div`
-    width: 1px;
-    height: 16px;
-    margin: 0 4px;
-`;
-const LikeWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-`;
-const Btn = styled.button`
-    display: flex;
-    & span {
-        font-size: 1.5rem;
-        font-weight: 200;
-        color: ${colors.black200};
-        padding-left: 6px;
-    }
-`;
-
-const Desc = styled.p`
-    margin: 32px 0;
-    font-size: 1.6rem;
-    line-height: 1.8rem;
-    color: ${colors.black200};
-    white-space: pre-line;
-    word-wrap: break-word;
-`;
-const ProfileContainer = styled.section`
-    padding: 32px 0;
-    display: flex;
-    align-items: center;
-`;
-const Img = styled(Image)`
-    border-radius: 50%;
-    @media only screen and (max-width: ${MobileSize}) {
-        width: 40px;
-        height: 40px;
-    }
-`;
-const AuthorProfile = styled.div`
-    margin-left: 16px;
-`;
-const Nickname = styled.p`
-    font-size: 1.8rem;
-    line-height: 2.7rem;
-    color: ${colors.black};
-    font-weight: 700;
-    @media only screen and (max-width: ${MobileSize}) {
-        font-size: 1.4rem;
-    }
-`;
-
-const Intro = styled.p`
-    margin-top: 16px;
-    font-size: 1.6rem;
-    line-height: 2rem;
-    color: ${colors.grey9};
-    @media only screen and (max-width: ${MobileSize}) {
-        margin-top: 8px;
-        font-size: 1.2rem;
-    }
-`;
 
 export default FoodPostView;

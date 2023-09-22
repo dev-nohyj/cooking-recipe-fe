@@ -22,11 +22,7 @@ const Main = ({ foodPostId }: Props) => {
         }
     }, []);
 
-    return (
-        <div>
-            <ModifyForm foodPostData={data!} />
-        </div>
-    );
+    return <ModifyForm foodPostData={data!} />;
 };
 
 export default Main;

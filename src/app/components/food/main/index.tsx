@@ -1,12 +1,14 @@
-import { TFoodPostData, useGetFoodPostQuery } from '@/apis/foodPost/queries/useGetFoodPostQuery';
-import { useCallback, useEffect, useMemo } from 'react';
-import FoodList from './FoodList';
+'use client';
+
 import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useMemo } from 'react';
+import { TFoodPostData, useGetFoodPostQuery } from '@/apis/foodPost/queries/useGetFoodPostQuery';
 import { useGetProfileQuery } from '@/apis/auth/queries/useGetProfileQuery';
+import FoodList from './FoodList';
 
 interface Props {}
 
-const FoodPost = ({}: Props) => {
+const Main = ({}: Props) => {
     const router = useRouter();
 
     const onCreate = useCallback(() => {
@@ -45,4 +47,4 @@ const FoodPost = ({}: Props) => {
     return <FoodList {...props} />;
 };
 
-export default FoodPost;
+export default Main;
