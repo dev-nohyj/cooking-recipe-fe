@@ -1,9 +1,7 @@
 import { OpenAIStream } from '@/app/utils/openai/openaiStream';
 import { NextResponse } from 'next/server';
 
-export const config = {
-    runtime: 'edge',
-};
+export const runtime = 'edge';
 
 export async function POST(req: Request) {
     const body: { content: string } = await req.json();
