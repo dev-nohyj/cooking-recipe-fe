@@ -1,14 +1,11 @@
 <h1>🍖 Food Share | 음식에 대한 정보 Food Share에서!</h1>
 
-<h4><a href="https://www.foodshare.shop" target="_blank">사이트 바로가기</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/dev-nohyj/cooking-recipe-fe" target="_blank">프론트엔드 Repository</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/dev-nohyj/cooking-recipe-be" target="_blank">백엔드 Repository</a><h4>
+<h4><a href="https://www.foodshare.shop" target="_blank">사이트 바로가기</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/dev-nohyj/cooking-recipe-fe" target="_blank">프론트엔드 Repository</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/dev-nohyj/cooking-recipe-be" target="_blank">백엔드 Repository</a></h4>
 
 <br/>
 <br/>
 
 <!-- ![image](url) -->
-
-<br/>
-<br/>
 
 ## 💬 프로젝트 소개
 
@@ -22,14 +19,14 @@
 
 ## ⚒️ Package
 
--   ### Language: TypeScript
--   ### Stack: React, Nextjs
--   ### UI: styled-components
--   ### Cache Manage: React Query
--   ### Form management: React-hook-form, yup
--   ### Editor: React-quill
-<br/>
-<br/>
+-   Language: TypeScript
+-   Stack: React, Nextjs
+-   UI: styled-components
+-   Cache Manage: React Query
+-   Form management: React-hook-form, yup
+-   Editor: React-quill
+    <br/>
+    <br/>
 
 ## 💡 사용 및 환경 변수
 
@@ -52,14 +49,17 @@ CLIENT_URL="프론트 url"
 OPENAI_API_KEY="open api key"
 ```
 
+<br />
+<br />
+
 ## 💻 기능정보
 
-### 1. 유저
+#### 1. 유저
 
 -   로그인 방식: 구글, 카카오 소셜 로그인 방식 지원하고 있습니다.
 -   프로필: 닉네임, 한줄 소개, 프로필 이미지를 추가 및 변경이 가능합니다.
 
-### 2. 레시피 공유
+#### 2. 레시피 공유
 
 -   레시피 작성: 카테고리, 썸네일, 제목, 태그를 추가할 수 있으며 내용은 react quill 에디터를 사용했습니다.
 -   레시피 조회: 카테고리 별로 조회가 가능하며, 무한 스크롤 방식을 사용해서 구현했습니다. 로그인 유저는 좋아요를 누를 수 있습니다.
@@ -67,7 +67,7 @@ OPENAI_API_KEY="open api key"
 -   레시피 수정: 자신의 게시물을 수정할 수 있으며, ui는 레시피 작성과 동일합니다.
 -   레시피 삭제: 자신의 게시물을 삭제할 수 있으며, 모달창을 통해 다시 한번 물어본 후 삭제하게 구현했습니다.
 
-### 3. 음식 사진 공유
+#### 3. 음식 사진 공유
 
 -   음식 사진 추가: 사진에 대한 간단한 내용, 태그를 추가할 수 있으며 이미지는 최대 6장까지 업로드가 가능합니다.
 -   음식 사진 조회: 무한 스크롤 방식을 사용해서 구현했으며, 게시물의 링크를 복사해 공유할 수 있습니다.
@@ -75,7 +75,7 @@ OPENAI_API_KEY="open api key"
 -   음식 사진 수정: 자신의 게시물을 수정할 수 있으며, ui는 음식사진 추가와 동일합니다.
 -   음식 사진 삭제: 자신의 게시물을 삭제할 수 있으며, 모달창을 통해 다시 한번 물어본 후 삭제하게 구현했습니다.
 
-### 4. 레시피 봇
+#### 4. 레시피 봇
 
 -   음식명을 입력하면 해당 음식의 레시피를 만들어주는 기능입니다.
 -   Chat Gpt api를 사용해서 구현했습니다.
