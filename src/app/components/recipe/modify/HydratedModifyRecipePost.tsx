@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 interface Props {
     recipePostId: number;
 }
-const Main = dynamic(() => import('@/app/components/recipe/modify/Main'), {
+const Main = dynamic(() => import('@/app/components/recipe/modify'), {
     ssr: false,
 });
 

@@ -1,11 +1,11 @@
 import { TRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { styled } from 'styled-components';
-import RecipePostCard from './RecipePostCard';
 import LoadingRecipePostList from './LoadingRecipePostList';
-import EmptyList from '../../shared/layouts/EmptyList';
-import { FloatingButton } from '../../shared/button/FloatingButton';
-import WriteIcon from '../../../../../public/svg/WriteIcon';
+import EmptyList from '@/app/components/shared/layouts/EmptyList';
+import { PostListWrapper } from '../RecipeMain.style';
+import { FloatingButton } from '@/app/components/shared/button/FloatingButton';
+import WriteIcon from '../../../../../../public/svg/WriteIcon';
+import RecipePostCard from '../recipePostCard';
 
 interface Props {
     recipePostList: TRecipePostData[];
@@ -19,7 +19,7 @@ interface Props {
     isLogin: boolean;
 }
 
-const RecipeList = ({
+const RecipeListView = ({
     recipePostList,
     hasMore,
     fetchNextPage,
@@ -43,7 +43,7 @@ const RecipeList = ({
     return (
         <>
             <InfiniteScroll dataLength={recipePostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
-                <Container>
+                <PostListWrapper>
                     {recipePostList.map((recipePost) => {
                         return (
                             <RecipePostCard
@@ -55,7 +55,7 @@ const RecipeList = ({
                             />
                         );
                     })}
-                </Container>
+                </PostListWrapper>
             </InfiniteScroll>
             {isLogin && (
                 <FloatingButton onClick={onCreate}>
@@ -66,20 +66,4 @@ const RecipeList = ({
     );
 };
 
-const Container = styled.div`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0 35px;
-    max-width: 1024px;
-    margin: 0 auto;
-    gap: 24px;
-    @media only screen and (max-width: 1024px) {
-        max-width: 694px;
-    }
-    @media only screen and (max-width: 693px) {
-        justify-content: center;
-    }
-`;
-
-export default RecipeList;
+export default RecipeListView;

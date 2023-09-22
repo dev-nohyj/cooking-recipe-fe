@@ -1,4 +1,4 @@
-import { CommentWrapper } from '../Comment.style';
+import { CommentWrapper } from './Comment.style';
 
 interface Props {
     isLogin: boolean;

@@ -9,7 +9,7 @@ import {
 } from '@/apis/recipePost/queries/useGetCommentQuery';
 import { produce } from 'immer';
 import ReplyCommentList from './ReplyCommentList';
-import CreateComment from '../comment/CreateComment';
+import CreateComment from '../CreateComment';
 import { TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 import { useDeleteCommentMutation } from '@/apis/recipePost/mutations/useDeleteCommentMutation';
 import { ReplyContainer } from '../Comment.style';

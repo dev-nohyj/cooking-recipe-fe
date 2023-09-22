@@ -1,12 +1,12 @@
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { styled } from 'styled-components';
+import { PostListWrapper } from '../RecipeMain.style';
 
 interface Props {}
 
 const LoadingRecipePostList = ({}: Props) => {
     return (
-        <Container>
+        <PostListWrapper>
             <Skeleton width={300} height={255} borderRadius={12} />
             <Skeleton width={300} height={255} borderRadius={12} />
             <Skeleton width={300} height={255} borderRadius={12} />
@@ -16,24 +16,8 @@ const LoadingRecipePostList = ({}: Props) => {
             <Skeleton width={300} height={255} borderRadius={12} />
             <Skeleton width={300} height={255} borderRadius={12} />
             <Skeleton width={300} height={255} borderRadius={12} />
-        </Container>
+        </PostListWrapper>
     );
 };
-
-const Container = styled.div`
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0 35px;
-    max-width: 1024px;
-    margin: 0 auto;
-    gap: 24px;
-    @media only screen and (max-width: 1024px) {
-        max-width: 694px;
-    }
-    @media only screen and (max-width: 693px) {
-        justify-content: center;
-    }
-`;
 
 export default LoadingRecipePostList;

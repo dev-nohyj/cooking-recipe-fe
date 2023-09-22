@@ -11,17 +11,17 @@ import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo } from 'react';
-import RecipeList from './RecipeList';
 import {
     GetPopularRecipePostQueryKey,
     TGetPopularRecipePostData,
 } from '@/apis/recipePost/queries/useGetPopularRecipePostQuery';
+import RecipeListView from './RecipePostListView';
 
 interface Props {
     category: ValueOf<typeof RecipePostCategoryLabel> | undefined;
 }
 
-const RecipePost = ({ category }: Props) => {
+const RecipePostList = ({ category }: Props) => {
     const router = useRouter();
     const cache = useQueryClient();
 
@@ -138,7 +138,7 @@ const RecipePost = ({ category }: Props) => {
         isLogin: !!user?.profile,
     };
 
-    return <RecipeList {...props} />;
+    return <RecipeListView {...props} />;
 };
 
-export default RecipePost;
+export default RecipePostList;

@@ -1,18 +1,18 @@
-import HydratedModifyRecipePost from '@/app/components/recipe/modify/HydratedModifyRecipePost';
+import ModifyMain from '@/app/components/recipe/modify/HydratedModifyRecipePost';
 import dynamic from 'next/dynamic';
 
 interface Props {
     searchParams: { recipePostId: string };
 }
-const Main = dynamic(() => import('@/app/components/recipe/create/Main'), {
+const CreateMain = dynamic(() => import('@/app/components/recipe/create'), {
     ssr: false,
 });
 
 const RecipeWritePage = ({ searchParams: { recipePostId } }: Props) => {
     if (recipePostId) {
-        return <HydratedModifyRecipePost recipePostId={parseInt(recipePostId)} />;
+        return <ModifyMain recipePostId={parseInt(recipePostId)} />;
     }
-    return <Main />;
+    return <CreateMain />;
 };
 
 export default RecipeWritePage;

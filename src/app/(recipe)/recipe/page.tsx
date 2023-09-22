@@ -1,4 +1,4 @@
-import Main from '@/app/components/recipe/main/Main';
+import Main from '@/app/components/recipe/main';
 import { CategoryAllType, RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
 import { redirect } from 'next/navigation';
 

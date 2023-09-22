@@ -16,7 +16,7 @@ import { Container } from '../forms/RecipeForm.style';
 import CategoryDropdown from '../forms/CategoryDropdown';
 import InputSection from '../forms/InputSection';
 import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
-import EditorComponent from '../forms/editorComponent';
+import Editor from '../forms/editor';
 import {
     GetPopularRecipePostQueryKey,
     TGetPopularRecipePostData,
@@ -213,7 +213,7 @@ const ModifyForm = ({ recipePostData }: Props) => {
         <Container>
             <CategoryDropdown {...categoryProps} />
             <InputSection {...inputProps} />
-            <EditorComponent control={control} />
+            <Editor control={control} />
             <SubmitSection {...submitProps} />
         </Container>
     );

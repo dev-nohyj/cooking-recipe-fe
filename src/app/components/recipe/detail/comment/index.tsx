@@ -10,7 +10,7 @@ import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { produce } from 'immer';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CommentList from './CommentList';
-import { CommentCount, Container } from '../Comment.style';
+import { CommentCount, Container } from './Comment.style';
 import CreateComment from './CreateComment';
 import { TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 import { useDeleteCommentMutation } from '@/apis/recipePost/mutations/useDeleteCommentMutation';

@@ -1,6 +1,6 @@
 import { TRecipePostCommentData } from '@/apis/recipePost/queries/useGetCommentQuery';
 import { nanoid } from 'nanoid';
-import { FetchMoreBtn } from '../Comment.style';
+import { FetchMoreBtn } from './Comment.style';
 import LoadingComment from './LoadingComment';
 import CommentItem from './commentItem';
 import { TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';

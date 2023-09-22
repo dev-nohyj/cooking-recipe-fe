@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import EditorToolbar from '../EditorToolbar';
+import EditorToolbar from './EditorToolbar';
 import { Control, Controller } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
@@ -20,7 +20,7 @@ interface Props {
     quillRef: React.RefObject<ReactQuill>;
 }
 
-const EditorComponentView = ({ control, modules, quillRef }: Props) => {
+const EditorView = ({ control, modules, quillRef }: Props) => {
     return (
         <Container>
             <EditorToolbar />
@@ -232,4 +232,4 @@ const Container = styled.section`
     }
 `;
 
-export default EditorComponentView;
+export default EditorView;

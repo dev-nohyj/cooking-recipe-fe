@@ -9,12 +9,10 @@ import {
     RightWrapper,
     TextWrapper,
 } from '../../Comment.style';
-import { commonImages } from '../../../../../../../public/images';
+import { commonImages } from '../../../../../../../../public/images';
 import { TRecipePostCommentData } from '@/apis/recipePost/queries/useGetCommentQuery';
 import { convertTime } from '@/app/utils/convertTime';
 import { TextButton } from '@/app/components/shared/button/TextButton';
-import ReplyComment from '../../replyComment';
-import { TGetProfileData } from '@/apis/auth/queries/useGetProfileQuery';
 
 interface Props {
     data: TRecipePostCommentData;

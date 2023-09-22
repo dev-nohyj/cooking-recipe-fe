@@ -1,26 +1,27 @@
-import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
-import { useCreateRecipePostMutation } from '@/apis/recipePost/mutations/useCreateRecipePostMutation';
-import { RecipePostSchema } from '@/app/utils/schema/recipePostSchema';
-import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
-import { RecipePostCategoryLabel, categoryValue } from '@/asset/labels/recipePostLabel';
-import { yupResolver } from '@hookform/resolvers/yup';
+'use client';
+import { useRouter } from 'next/navigation';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { ChangeEvent, useCallback, useMemo, useRef } from 'react';
+import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
 import { useForm } from 'react-hook-form';
-import SubmitSection from '../forms/SubmitSection';
-import { useRouter } from 'next/navigation';
+import { RecipePostCategoryLabel, categoryValue } from '@/asset/labels/recipePostLabel';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { RecipePostSchema } from '@/app/utils/schema/recipePostSchema';
 import { useInputHashTag } from '@/app/hooks/useInputHashTag';
+import { useCreateRecipePostMutation } from '@/apis/recipePost/mutations/useCreateRecipePostMutation';
 import { TGetRecipePostData } from '@/apis/recipePost/queries/useGetRecipePostQuery';
 import { produce } from 'immer';
-import CategoryDropdown from '../forms/CategoryDropdown';
-import { useOutsideClick } from '@/app/hooks/useOutsizeClick';
+import { useCreateS3UrlMutation } from '@/apis/aws/useCreateS3UrlMutation';
+import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
 import { Container } from '../forms/RecipeForm.style';
+import CategoryDropdown from '../forms/CategoryDropdown';
 import InputSection from '../forms/InputSection';
-import EditorComponent from '../forms/editorComponent';
+import EditorComponent from '../forms/editor';
+import SubmitSection from '../forms/SubmitSection';
 
 interface Props {}
 
-const RegisterForm = ({}: Props) => {
+const Main = ({}: Props) => {
     const router = useRouter();
     const cache = useQueryClient();
     const categoryRef = useRef(null);
@@ -206,4 +207,4 @@ const RegisterForm = ({}: Props) => {
     );
 };
 
-export default RegisterForm;
+export default Main;

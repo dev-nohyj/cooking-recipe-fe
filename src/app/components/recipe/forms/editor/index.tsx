@@ -10,8 +10,8 @@ import QuillImageDropAndPaste from 'quill-image-drop-and-paste';
 import { defaultAxios } from '@/config/axiosInstance/defaultAxios';
 import { PresignedUrlTypeLabel } from '@/asset/labels/presignedUrlTypeLabel';
 import { RecipePostCategoryLabel } from '@/asset/labels/recipePostLabel';
-import CustomImage from '../Image';
-import EditorComponentView from './EditorComponentView';
+import CustomImage from './Image';
+import EditorView from './EditorView';
 
 interface Props {
     control: Control<
@@ -29,7 +29,7 @@ interface Props {
 const Parchment = Quill.import('parchment');
 const maxFileSize = 2014000;
 
-const EditorComponent: React.FC<Props> = ({ control }) => {
+const Editor: React.FC<Props> = ({ control }) => {
     const quillRef = useRef<ReactQuill>(null);
 
     Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
@@ -146,7 +146,7 @@ const EditorComponent: React.FC<Props> = ({ control }) => {
         modules,
         quillRef,
     };
-    return <EditorComponentView {...props} />;
+    return <EditorView {...props} />;
 };
 
-export default React.memo(EditorComponent);
+export default React.memo(Editor);

@@ -1,4 +1,4 @@
-import Main from '@/app/components/recipe/detail/Main';
+import Main from '@/app/components/recipe/detail';
 import { redirect } from 'next/navigation';
 
 interface Props {
