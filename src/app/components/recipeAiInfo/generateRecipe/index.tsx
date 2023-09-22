@@ -1,16 +1,15 @@
 'use client';
-
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { useGenerateRecipe } from '@/app/hooks/useGenerateRecipe';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { KeyboardEvent, useCallback } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import RecipeAiInfoView from './RecipeAiInfoView';
+import * as Yup from 'yup';
+import GenerateRecipeView from './GenerateRecipeView';
 
 interface Props {}
 
-const Main = ({}: Props) => {
+const GenerateRecipe = ({}: Props) => {
     const { handleSubmit, control, setValue } = useForm<{ content: string }>({
         defaultValues: {
             content: '',
@@ -57,7 +56,7 @@ const Main = ({}: Props) => {
         result,
         onCopy,
     };
-    return <RecipeAiInfoView {...props} />;
+    return <GenerateRecipeView {...props} />;
 };
 
-export default Main;
+export default GenerateRecipe;

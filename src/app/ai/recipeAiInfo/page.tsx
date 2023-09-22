@@ -1,4 +1,4 @@
-import Main from '@/app/components/recipeAiInfo/Main';
+import Main from '@/app/components/recipeAiInfo';
 
 interface Props {}
 
