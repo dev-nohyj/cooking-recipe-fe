@@ -12,10 +12,7 @@ interface Props {
     nickname: string;
     introduction: string | null;
 }
-export type TModifyProfileInfo = {
-    nickname: string;
-    introduction: string;
-};
+
 const ProfileInfo = ({ nickname, introduction }: Props) => {
     const cache = useQueryClient();
     const [isModify, onChangeModify] = useSwitchState();
@@ -24,7 +21,7 @@ const ProfileInfo = ({ nickname, introduction }: Props) => {
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm<TModifyProfileInfo>({
+    } = useForm({
         defaultValues: {
             nickname: nickname,
             introduction: introduction ?? '',
@@ -56,6 +53,7 @@ const ProfileInfo = ({ nickname, introduction }: Props) => {
     });
 
     const onSubmit = handleSubmit((data) => {
+        if (!data.introduction) return;
         const variable = {
             nickname: data.nickname,
             introduction: data.introduction.length === 0 ? null : data.introduction,

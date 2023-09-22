@@ -1,7 +1,6 @@
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { BtnWrapper, Desc, ErrorMsg, ModifyProfileInput, ProfileContainer, Title } from '../Profile.style';
 import { colors } from '@/asset/colors';
-import { TModifyProfileInfo } from '.';
 import { TextButton } from '../../shared/button/TextButton';
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
     control: Control<
         {
             nickname: string;
-            introduction: string;
+            introduction: string | undefined;
         },
         any
     >;
@@ -18,7 +17,10 @@ interface Props {
     isModifyProfileLoading: boolean;
     nickname: string;
     introduction: string | null;
-    errors: FieldErrors<TModifyProfileInfo>;
+    errors: FieldErrors<{
+        nickname: string;
+        introduction: string | undefined;
+    }>;
 }
 
 const ProfileInfoView = ({
