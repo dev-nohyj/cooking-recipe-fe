@@ -1,4 +1,4 @@
-import Main from '@/app/components/profile/Main';
+import Main from '@/app/components/profile';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
