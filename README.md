@@ -5,7 +5,7 @@
 <br/>
 <br/>
 
-<!-- ![image](url) -->
+<img src="https://github.com/dev-nohyj/cooking-recipe-be/assets/141613226/d5cd6412-2f84-481f-85ef-bfc16672889a" alt="img"  width="100%" height="auto">
 
 ## 💬 프로젝트 소개
 
