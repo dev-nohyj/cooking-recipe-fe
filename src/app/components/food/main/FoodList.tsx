@@ -39,7 +39,13 @@ const FoodList = ({ isLoading, foodPostList, onCreate, fetchNextPage, hasMore, i
                 </FloatingButton>
             )}
 
-            <InfiniteScroll dataLength={foodPostList.length} next={fetchNextPage} hasMore={hasMore} loader={<></>}>
+            <InfiniteScroll
+                dataLength={foodPostList.length}
+                next={fetchNextPage}
+                hasMore={hasMore}
+                loader={<></>}
+                style={{ overflowY: 'hidden' }}
+            >
                 <MasonryInfiniteGrid align="center" gap={15}>
                     {foodPostList.map((foodPost) => {
                         return <FoodPostCard key={nanoid(6)} data={foodPost} />;
