@@ -13,8 +13,16 @@ interface Props {
 }
 
 const LoginFailurePage = ({ searchParams: { code } }: Props) => {
-    const errorReason =
-        parseInt(code) === loginFailureLabel.providerFail ? '잘못된 소셜로그인 접근' : '시스템에러 발생';
+    const errorReason = useCallback(() => {
+        switch (parseInt(code)) {
+            case loginFailureLabel.providerFail:
+                return '잘못된 소셜로그인 접근';
+            case loginFailureLabel.kakaoEmptyEmail:
+                return '카카오 이메일 동의를 체크해주셔야 합니다.';
+            default:
+                return '시스템에러 발생';
+        }
+    }, [code]);
     const router = useRouter();
     const onClick = useCallback(() => {
         router.replace('/');
@@ -23,7 +31,7 @@ const LoginFailurePage = ({ searchParams: { code } }: Props) => {
         <Container>
             <div>
                 <Title>로그인에 실패했습니다.</Title>
-                <Reason>Reason: {errorReason}</Reason>
+                <Reason>Reason: {errorReason()}</Reason>
                 <Btn onClick={onClick}>홈으로 돌아가기</Btn>
             </div>
         </Container>
