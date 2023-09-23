@@ -7,6 +7,9 @@ export const HomeContainer = styled.div`
     max-width: 1024px;
     margin: 0 auto;
     padding: 0 32px 32px;
+    @media only screen and (max-width: ${MobileSize}) {
+        padding: 0 16px 32px;
+    }
 `;
 
 export const Title = styled.h2`
