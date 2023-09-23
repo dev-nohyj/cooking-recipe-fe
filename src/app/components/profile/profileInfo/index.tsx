@@ -53,7 +53,7 @@ const ProfileInfo = ({ nickname, introduction }: Props) => {
     });
 
     const onSubmit = handleSubmit((data) => {
-        if (!data.introduction) return;
+        if (data.introduction === undefined) return;
         const variable = {
             nickname: data.nickname,
             introduction: data.introduction.length === 0 ? null : data.introduction,
