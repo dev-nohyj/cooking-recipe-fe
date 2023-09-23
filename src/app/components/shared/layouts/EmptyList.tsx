@@ -6,16 +6,19 @@ interface Props {
     title: string;
     desc: string;
     onCreate: () => void;
+    isLogin: boolean;
 }
 
-const EmptyList = ({ title, desc, onCreate }: Props) => {
+const EmptyList = ({ title, desc, onCreate, isLogin }: Props) => {
     return (
         <Container>
             <Title>{title}</Title>
             <Desc>{desc}</Desc>
-            <RectangleButton backgroundColor={colors.sandyBrown} color={colors.white} onClick={onCreate}>
-                추가하기
-            </RectangleButton>
+            {isLogin && (
+                <RectangleButton backgroundColor={colors.sandyBrown} color={colors.white} onClick={onCreate}>
+                    추가하기
+                </RectangleButton>
+            )}
         </Container>
     );
 };

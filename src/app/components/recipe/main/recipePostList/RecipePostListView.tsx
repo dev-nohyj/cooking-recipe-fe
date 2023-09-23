@@ -37,6 +37,7 @@ const RecipeListView = ({
                 title={'게시물이 존재하지 않습니다.'}
                 desc={'게시물을 추가해서 나만의 레시피를 공유해세요!'}
                 onCreate={onCreate}
+                isLogin={isLogin}
             />
         );
 
