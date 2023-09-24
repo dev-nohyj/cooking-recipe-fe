@@ -8,7 +8,7 @@ interface Props {}
 const FoodList = ({}: Props) => {
     const router = useRouter();
     const onRouteFood = useCallback(() => {
-        router.push('/recipe');
+        router.push('/food');
     }, []);
 
     const { data, isLoading, error } = useGetPopularFoodPostQuery();
