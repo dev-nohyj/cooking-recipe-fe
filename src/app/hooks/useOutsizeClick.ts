@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-type returnType = [boolean, () => void];
+type returnType = [boolean, (v?: boolean) => void];
 
 export const useOutsideClick = (ref: any = null, initialVisible: any = false): returnType => {
     const [isActive, setIsActive] = useState(initialVisible);
@@ -18,8 +18,11 @@ export const useOutsideClick = (ref: any = null, initialVisible: any = false): r
             window.removeEventListener('mousedown', onClick);
         };
     }, [isActive, ref]);
-    const onTargetClick = useCallback(() => {
-        setIsActive(!isActive);
-    }, [isActive]);
+    const onTargetClick = useCallback(
+        (v?: boolean) => {
+            setIsActive(v ? v : !isActive);
+        },
+        [isActive],
+    );
     return [isActive, onTargetClick];
 };
