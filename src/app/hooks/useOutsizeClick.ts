@@ -20,7 +20,7 @@ export const useOutsideClick = (ref: any = null, initialVisible: any = false): r
     }, [isActive, ref]);
     const onTargetClick = useCallback(
         (v?: boolean) => {
-            setIsActive(v ? v : !isActive);
+            setIsActive(typeof v === 'boolean' ? v : !isActive);
         },
         [isActive],
     );
